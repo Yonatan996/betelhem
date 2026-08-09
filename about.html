@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About | Bethlehem Lebneh</title>
+<meta name="description" content="Learn about Bethlehem Lebneh — esthetician, wellness guide, and the philosophy behind our luxury skin care practice in Seattle."/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.about-story { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.about-story-text .section-title { font-size: clamp(2rem,4vw,3rem); font-style: italic; margin-bottom: 1.5rem; }
+.about-story-text p { color: var(--text-mid); line-height: 1.9; margin-bottom: 1.2rem; font-size: .95rem; }
+.about-portrait { position: relative; }
+.about-portrait img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+.portrait-placeholder { width: 100%; aspect-ratio: 3/4; background: linear-gradient(160deg, #ddd5c8, #c8c0b4); }
+.portrait-frame { position: absolute; inset: -12px; border: 1px solid var(--gold); opacity: .3; pointer-events: none; }
+.about-values { background: var(--charcoal-2); padding: 6rem 4rem; color: var(--cream); }
+.values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2.5rem; margin-top: 3rem; }
+.value-card { border-top: 1px solid rgba(184,169,106,.3); padding-top: 2rem; }
+.value-icon { font-size: 1.8rem; margin-bottom: 1rem; color: var(--gold); }
+.value-title { font-family: var(--serif); font-size: 1.2rem; color: var(--cream); margin-bottom: .7rem; }
+.value-desc { font-size: .88rem; color: rgba(240,235,227,.55); line-height: 1.8; }
+.about-yoga { display: grid; grid-template-columns: 1fr 1fr; }
+.yoga-img { aspect-ratio: 1/1; overflow: hidden; }
+.yoga-img img { width: 100%; height: 100%; object-fit: cover; }
+.yoga-img-placeholder { width: 100%; height: 100%; min-height: 480px; background: linear-gradient(135deg, #3a3530, #4a4540); }
+.yoga-content { background: var(--charcoal); padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; color: var(--cream); }
+.yoga-content .section-title { font-style: italic; color: var(--cream); margin-bottom: 1.5rem; font-size: clamp(1.8rem,3.5vw,2.8rem); }
+.yoga-content p { color: rgba(240,235,227,.6); line-height: 1.9; margin-bottom: 1.5rem; font-size: .95rem; }
+.certifications { padding: 5rem 4rem; background: var(--cream-light); }
+.cert-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.cert-item { text-align: center; padding: 2rem 1rem; border: 1px solid rgba(0,0,0,.08); background: var(--cream); }
+.cert-num { font-family: var(--serif); font-size: 2.5rem; color: var(--gold); font-style: italic; }
+.cert-label { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-mid); margin-top: .4rem; }
+@media(max-width:900px){
+  .about-story,.about-values,.certifications{padding:4rem 1.5rem;}
+  .about-story{grid-template-columns:1fr;gap:2.5rem;}
+  .values-grid{grid-template-columns:1fr;}
+  .about-yoga{grid-template-columns:1fr;}
+  .yoga-content{padding:3rem 1.5rem;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<nav class="main-nav">
+  <div class="nav-left">
+    <a href="about.html" class="nav-link">About</a>
+    <a href="daily-care.html" class="nav-link">Skin Concerns</a>
+    <a href="products.html" class="nav-link">Products</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <svg class="logo-emblem" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/>
+      <circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/>
+      <circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/>
+      <polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/>
+      <polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/>
+      <polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/>
+      <polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/>
+      <line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/>
+      <text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <a href="treatments.html" class="nav-link">Services and Treatments</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="contact.html" class="nav-book">Book Now</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="about.html" class="nav-link">About</a>
+  <a href="daily-care.html" class="nav-link">Skin Concerns</a>
+  <a href="products.html" class="nav-link">Products</a>
+  <a href="treatments.html" class="nav-link">Services &amp; Treatments</a>
+  <a href="blog.html" class="nav-link">Blog</a>
+  <a href="contact.html" class="nav-book" style="width:fit-content">Book Now</a>
+</div>
+
+<header class="page-hero">
+  <p class="page-hero-eyebrow">Our Story</p>
+  <h1 class="page-hero-title">A Symphony of Science &amp; Touch</h1>
+  <p class="page-hero-sub">Every treatment, every product, every consultation is rooted in a singular commitment — to help you truly glow from within.</p>
+</header>
+
+<section class="about-story">
+  <div class="about-portrait reveal">
+    <img src="images/yoga_about.png" alt="Bethlehem Lebneh, esthetician and wellness practitioner" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <div class="portrait-placeholder" style="display:none"></div>
+    <div class="portrait-frame"></div>
+  </div>
+  <div class="about-story-text reveal">
+    <p class="section-eyebrow">Meet Bethlehem</p>
+    <h2 class="section-title">Where Healing Begins With Self-Knowledge</h2>
+    <div class="section-divider"></div>
+    <p>My journey into skincare and wellness was never a straight line — it was forged through personal transformation. Growing up navigating my own skin challenges, I became fascinated by the science of the skin and the deep connection between our inner world and outer radiance.</p>
+    <p>After years of study in esthetics, clinical skincare, and holistic wellness, I built a practice grounded in one truth: genuine results come only when we treat the whole person. The skin doesn't exist in isolation — it responds to stress, nutrition, sleep, and emotional well-being.</p>
+    <p>I trained in advanced clinical protocols, chemical resurfacing, microcurrent therapy, and somatic wellness practices. Each modality I offer has been carefully chosen because I have experienced its benefits personally.</p>
+    <p>My mission is simple: to create a space where every client feels genuinely seen, heard, and cared for — and leaves with skin that reflects their inner vitality.</p>
+    <a href="contact.html" class="btn-pill" style="margin-top:.5rem">Book a Consultation →</a>
+  </div>
+</section>
+
+<section class="about-values">
+  <div class="reveal">
+    <p class="section-eyebrow">Our Approach</p>
+    <h2 class="section-title" style="color:var(--cream)">The Pillars of Our Practice</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <div class="value-icon">✦</div>
+      <h3 class="value-title">Clinical Precision</h3>
+      <p class="value-desc">Every protocol is evidence-based. We use professional-grade actives, advanced modalities, and ongoing education to deliver measurable results.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-icon">❋</div>
+      <h3 class="value-title">Holistic Wisdom</h3>
+      <p class="value-desc">We look beyond the surface. Stress, sleep, and lifestyle are part of every consultation — because lasting skin health starts from within.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-icon">◎</div>
+      <h3 class="value-title">Personalized Care</h3>
+      <p class="value-desc">No two skin journeys are alike. We build custom protocols for your unique biology, concerns, and goals — not generic one-size-fits-all plans.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about-yoga">
+  <div class="yoga-img reveal">
+    <img src="images/treatment_hero.png" alt="Somatic wellness and skin care practice" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <div class="yoga-img-placeholder" style="display:none"></div>
+  </div>
+  <div class="yoga-content reveal">
+    <p class="section-eyebrow">Beyond Skincare</p>
+    <h2 class="section-title">Wellness as a Way of Life</h2>
+    <p>My practice extends beyond the treatment room. I guide clients through somatic breathwork, movement principles, and holistic lifestyle practices that reduce the stress-driven aging cycle.</p>
+    <p>Because true radiance isn't just a product of what you apply — it's a reflection of how you live, breathe, and inhabit your body.</p>
+    <a href="treatments.html" class="btn-solid">Explore Wellness Sessions →</a>
+  </div>
+</section>
+
+<section class="certifications">
+  <div class="reveal" style="text-align:center">
+    <p class="section-eyebrow">Credentials</p>
+    <h2 class="section-title">Training &amp; Certifications</h2>
+    <div class="section-divider" style="margin:1rem auto"></div>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-item reveal">
+      <p class="cert-num">10+</p>
+      <p class="cert-label">Years Experience</p>
+    </div>
+    <div class="cert-item reveal">
+      <p class="cert-num">500+</p>
+      <p class="cert-label">Happy Clients</p>
+    </div>
+    <div class="cert-item reveal">
+      <p class="cert-num">8</p>
+      <p class="cert-label">Advanced Certifications</p>
+    </div>
+    <div class="cert-item reveal">
+      <p class="cert-num">100%</p>
+      <p class="cert-label">Personalized Protocols</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand-name">Bethlehem Lebneh</p>
+      <p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life. From rejuvenating treatments to personalized wellness plans.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Explore</p>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="daily-care.html">Skin Concerns</a>
+        <a href="products.html">Products</a>
+        <a href="treatments.html">Services and Treatments</a>
+        <a href="blog.html">Blog</a>
+      </nav>
+    </div>
+    <div>
+      <p class="footer-col-title">Connect</p>
+      <nav class="footer-links">
+        <a href="contact.html">Contact Us</a>
+        <a href="contact.html">Book Now</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4" fill="#2d2924"/><circle cx="17.5" cy="6.5" r="1" fill="#2d2924"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

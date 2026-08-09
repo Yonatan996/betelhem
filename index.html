@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bethlehem Lebneh | Skin Care & Well-Being</title>
+<meta name="description" content="Luxury skincare, wellness, and holistic beauty services in Seattle. Personalized treatments, clinical protocols, and curated skincare products by Bethlehem Lebneh."/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  background: var(--charcoal) url('images/hero_bg.png') center/cover no-repeat;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem;
+  position: relative; overflow: hidden;
+}
+.hero::before { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(30,27,23,.72) 0%, rgba(30,27,23,.55) 60%, rgba(30,27,23,.85) 100%); }
+.hero-inner { position: relative; z-index: 1; max-width: 760px; }
+.hero-eyebrow { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+.hero-title { font-size: clamp(3rem, 7vw, 5.5rem); color: var(--cream); font-style: italic; line-height: 1.1; margin-bottom: 1.8rem; }
+.hero-title span { color: var(--gold-light); }
+.hero-sub { font-size: 1rem; color: rgba(240,235,227,.65); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; cursor: pointer; }
+.hero-scroll-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: scrollPulse 1.8s ease-in-out infinite; }
+.hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
+@keyframes scrollPulse { 0%,100%{opacity:.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+
+/* ── PHILOSOPHY ── */
+.philosophy { background: var(--charcoal-2); padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.philosophy-text { color: var(--cream); }
+.philosophy-text .section-title { font-size: clamp(2rem, 4vw, 3.2rem); font-style: italic; margin-bottom: 1.5rem; }
+.philosophy-text p { color: rgba(240,235,227,.6); line-height: 1.9; margin-bottom: 1.2rem; }
+.philosophy-visual { position: relative; }
+.philosophy-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.philosophy-img-placeholder { width: 100%; aspect-ratio: 4/5; background: linear-gradient(135deg, #3a3530, #4a4540, #3a3530); display: flex; align-items: center; justify-content: center; }
+.philosophy-accent { position: absolute; top: -1.5rem; right: -1.5rem; width: 80px; height: 80px; border: 2px solid var(--gold); opacity: .4; }
+
+/* ── SKIN CARE GRID ── */
+.skin-care-section { padding: 6rem 4rem; background: var(--cream-light); }
+.skin-care-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+.concern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.concern-card {
+  background: var(--cream); border: 1px solid rgba(0,0,0,.08);
+  cursor: pointer; transition: transform .3s, box-shadow .3s;
+  overflow: hidden;
+}
+.concern-card:hover, .concern-card.open { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+.concern-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: linear-gradient(135deg, var(--cream-mid), #d8d0c4); }
+.concern-body { padding: 1.6rem; }
+.concern-label { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: .5rem; }
+.concern-title { font-family: var(--serif); font-size: 1.35rem; margin-bottom: .6rem; }
+.concern-divider { width: 30px; height: 1.5px; background: var(--gold); margin-bottom: .8rem; }
+.concern-desc { font-size: .88rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.2rem; }
+
+/* ── TREATMENTS BENTO ── */
+.treatments-section { padding: 6rem 4rem; background: var(--cream-mid); }
+.treatments-header { text-align: center; margin-bottom: 3.5rem; }
+.treatments-header .section-divider { margin: 1rem auto; }
+.bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(0,0,0,.1); }
+.bento-card {
+  background: var(--cream); padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 280px; transition: background .3s;
+  position: relative; overflow: hidden;
+}
+.bento-card:hover { background: var(--charcoal); color: var(--cream); }
+.bento-card:hover .bento-label { color: var(--gold); }
+.bento-card:hover .bento-desc { color: rgba(240,235,227,.65); }
+.bento-card:hover .btn-pill { color: var(--cream); border-color: rgba(240,235,227,.4); }
+.bento-card:hover .btn-pill:hover { background: var(--cream); color: var(--charcoal); }
+.bento-label { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--teal); margin-bottom: .8rem; transition: color .3s; }
+.bento-title { font-family: var(--serif); font-size: 1.3rem; margin-bottom: .8rem; line-height: 1.3; }
+.bento-desc { font-size: .85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; flex: 1; transition: color .3s; }
+.bento-icon { font-size: 2rem; margin-bottom: 1rem; opacity: .35; }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section { background: #d4cec6; padding: 6rem 4rem; }
+.testimonials-header { margin-bottom: 3rem; }
+.testimonials-header .section-title { font-style: italic; }
+.testimonial-carousel { max-width: 720px; }
+.testimonial-slide { display: none; }
+.testimonial-slide.active { display: block; }
+.t-stars { color: var(--text-dark); font-size: 1.1rem; letter-spacing: .2em; margin-bottom: 1.2rem; }
+.t-quote { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--text-dark); line-height: 1.8; margin-bottom: 1.4rem; }
+.t-author { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-mid); }
+.carousel-controls { display: flex; align-items: center; gap: 1.5rem; margin-top: 2.5rem; }
+.t-prev, .t-next { background: none; border: 1px solid rgba(0,0,0,.25); width: 38px; height: 38px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+.t-prev:hover, .t-next:hover { background: var(--charcoal); }
+.t-prev:hover svg, .t-next:hover svg { fill: var(--cream); }
+.t-prev svg, .t-next svg { width: 14px; height: 14px; fill: var(--text-dark); }
+.t-dots { display: flex; gap: .5rem; }
+.t-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,.2); cursor: pointer; transition: background .2s; border: none; }
+.t-dot.active { background: var(--text-dark); }
+
+@media (max-width: 900px) {
+  .philosophy { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+  .skin-care-section, .treatments-section, .testimonials-section { padding: 4rem 1.5rem; }
+  .concern-grid { grid-template-columns: 1fr 1fr; }
+  .bento-grid { grid-template-columns: 1fr 1fr; }
+  .skin-care-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+@media (max-width: 540px) {
+  .concern-grid { grid-template-columns: 1fr; }
+  .bento-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="main-nav" id="main-nav">
+  <div class="nav-left">
+    <a href="about.html" class="nav-link">About</a>
+    <a href="daily-care.html" class="nav-link">Skin Concerns</a>
+    <a href="products.html" class="nav-link">Products</a>
+  </div>
+  <a href="index.html" class="nav-logo" aria-label="Bethlehem Lebneh Home">
+    <svg class="logo-emblem" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/>
+      <circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/>
+      <circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/>
+      <polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/>
+      <polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/>
+      <polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/>
+      <polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/>
+      <line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/>
+      <line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/>
+      <line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/>
+      <text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <a href="treatments.html" class="nav-link">Services and Treatments</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="contact.html" class="nav-book">Book Now</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="about.html" class="nav-link">About</a>
+  <a href="daily-care.html" class="nav-link">Skin Concerns</a>
+  <a href="products.html" class="nav-link">Products</a>
+  <a href="treatments.html" class="nav-link">Services &amp; Treatments</a>
+  <a href="blog.html" class="nav-link">Blog</a>
+  <a href="contact.html" class="nav-link">Contact</a>
+  <a href="contact.html" class="nav-book" style="width:fit-content">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Bethlehem Lebneh · Seattle, WA</p>
+    <h1 class="hero-title">Luxury <span>skin &amp; wellness</span><br>reimagined</h1>
+    <p class="hero-sub">Personalized skincare protocols, clinical treatments, and holistic beauty services designed to help you embrace your most luminous self.</p>
+    <div class="hero-actions">
+      <a href="treatments.html" class="btn-solid">Explore Treatments</a>
+      <a href="about.html" class="btn-solid" style="border-color:rgba(240,235,227,.35)">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('philosophy').scrollIntoView({behavior:'smooth'})">
+    <div class="hero-scroll-dot"></div>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-text reveal">
+    <p class="section-eyebrow">Our Philosophy</p>
+    <h2 class="section-title">Science + Intuition.<br>Skin Redefined.</h2>
+    <div class="section-divider" style="background:rgba(184,169,106,.5)"></div>
+    <p>At Bethlehem Lebneh, we believe radiant skin is the intersection of clinical precision and intuitive care. Every protocol is backed by dermatological science — and delivered with the warmth of a true wellness practice.</p>
+    <p>We treat the whole person: skin, body, and spirit. From targeted actives to somatic breathwork, our approach honors your unique biology and lived experience.</p>
+    <a href="about.html" class="btn-solid" style="margin-top:.5rem">Learn More</a>
+  </div>
+  <div class="philosophy-visual reveal">
+    <img src="images/treatment_hero.png" alt="Luxury facial treatment" class="philosophy-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+    <div class="philosophy-img-placeholder" style="display:none">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="#b8a96a" stroke-width="1" opacity=".4"/><text x="30" y="36" text-anchor="middle" font-family="Playfair Display,serif" font-size="22" fill="#b8a96a" font-style="italic">B</text></svg>
+    </div>
+    <div class="philosophy-accent"></div>
+  </div>
+</section>
+
+<!-- SKIN CARE SECTION -->
+<section class="skin-care-section" id="skin-concerns">
+  <div class="skin-care-header reveal">
+    <div>
+      <p class="section-eyebrow">Skin Concerns</p>
+      <h2 class="section-title">Your Concern.<br>Our Protocol.</h2>
+    </div>
+    <a href="daily-care.html" class="btn-pill">View All →</a>
+  </div>
+  <div class="concern-grid">
+    <div class="concern-card reveal" onclick="location.href='daily-care.html'">
+      <div class="concern-img" style="background:linear-gradient(135deg,#e8e0d4,#d0c8bc)"></div>
+      <div class="concern-body">
+        <p class="concern-label">Protocol</p>
+        <h3 class="concern-title">Aging &amp; Wrinkles</h3>
+        <div class="concern-divider"></div>
+        <p class="concern-desc">Targeted actives to restore firmness, smooth fine lines and support healthy collagen production over time.</p>
+        <a href="daily-care.html" class="btn-pill">Explore →</a>
+      </div>
+    </div>
+    <div class="concern-card reveal" onclick="location.href='daily-care.html'">
+      <div class="concern-img" style="background:linear-gradient(135deg,#d4c8b8,#c8b89a)"></div>
+      <div class="concern-body">
+        <p class="concern-label">Protocol</p>
+        <h3 class="concern-title">Brightening</h3>
+        <div class="concern-divider"></div>
+        <p class="concern-desc">Glass-skin glow through vitamin C, chemical exfoliation and barrier-perfect hydration working in harmony.</p>
+        <a href="daily-care.html" class="btn-pill">Explore →</a>
+      </div>
+    </div>
+    <div class="concern-card reveal" onclick="location.href='daily-care.html'">
+      <div class="concern-img" style="background:linear-gradient(135deg,#dde4e8,#c8d4d8)"></div>
+      <div class="concern-body">
+        <p class="concern-label">Protocol</p>
+        <h3 class="concern-title">Dry Skin</h3>
+        <div class="concern-divider"></div>
+        <p class="concern-desc">Deep hydration from molecular to surface level — restoring the lipid barrier and locking in lasting moisture.</p>
+        <a href="daily-care.html" class="btn-pill">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS BENTO -->
+<section class="treatments-section" id="treatments">
+  <div class="treatments-header reveal">
+    <p class="section-eyebrow">Services &amp; Treatments</p>
+    <h2 class="section-title">Clinical Suites</h2>
+    <div class="section-divider"></div>
+    <p style="color:var(--text-mid);max-width:500px;margin:0 auto;font-size:.95rem">Advanced corrective treatments designed for measurable, lasting skin transformation.</p>
+  </div>
+  <div class="bento-grid reveal">
+    <div class="bento-card">
+      <div>
+        <div class="bento-icon">✦</div>
+        <p class="bento-label">Anti-Aging</p>
+        <h3 class="bento-title">The Longevity Sculpt</h3>
+        <p class="bento-desc">Microcurrent + peptide infusion to remodel facial contours and fight structural aging at the cellular level.</p>
+      </div>
+      <a href="treatments.html" class="btn-pill" style="width:fit-content">Book →</a>
+    </div>
+    <div class="bento-card">
+      <div>
+        <div class="bento-icon">◎</div>
+        <p class="bento-label">Tone &amp; Texture</p>
+        <h3 class="bento-title">Radiance &amp; Tone Correction</h3>
+        <p class="bento-desc">A brightening treatment pairing chemical exfoliation with brightening enzymes and vitamin C infusion.</p>
+      </div>
+      <a href="treatments.html" class="btn-pill" style="width:fit-content">Book →</a>
+    </div>
+    <div class="bento-card">
+      <div>
+        <div class="bento-icon">❋</div>
+        <p class="bento-label">Barrier Repair</p>
+        <h3 class="bento-title">The Recovery Infusion</h3>
+        <p class="bento-desc">Post-treatment skin rescue restoring the moisture barrier with ceramide-rich formulas and LED therapy.</p>
+      </div>
+      <a href="treatments.html" class="btn-pill" style="width:fit-content">Book →</a>
+    </div>
+    <div class="bento-card">
+      <div>
+        <div class="bento-icon">⬡</div>
+        <p class="bento-label">Resurfacing</p>
+        <h3 class="bento-title">Advanced Chemical Peel</h3>
+        <p class="bento-desc">Medical-grade acid resurfacing targeting acne scarring, hyperpigmentation, and uneven skin texture.</p>
+      </div>
+      <a href="treatments.html" class="btn-pill" style="width:fit-content">Book →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="testimonials-header reveal">
+    <p class="section-eyebrow">Client Experiences</p>
+    <h2 class="section-title">Radiance Realized</h2>
+  </div>
+  <div class="testimonial-carousel">
+    <div class="testimonial-slide">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I finally found my go-to esthetician! My hyperpigmentation has faded significantly and my barrier is so healthy now."</p>
+      <p class="t-author">— Client Name</p>
+    </div>
+    <div class="testimonial-slide">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"The Longevity Sculpt treatment genuinely changed my face. My jaw looks more defined and my skin has never been this firm."</p>
+      <p class="t-author">— Client Name</p>
+    </div>
+    <div class="testimonial-slide">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"Bethlehem's knowledge is unmatched. She creates a tailored protocol and actually explains the science behind every step."</p>
+      <p class="t-author">— Client Name</p>
+    </div>
+    <div class="testimonial-slide">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I came in with severe cystic acne and within three sessions my skin cleared dramatically. I feel so confident now."</p>
+      <p class="t-author">— Client Name</p>
+    </div>
+  </div>
+  <div class="carousel-controls">
+    <button class="t-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="t-dots">
+      <button class="t-dot" aria-label="Slide 1"></button>
+      <button class="t-dot" aria-label="Slide 2"></button>
+      <button class="t-dot" aria-label="Slide 3"></button>
+      <button class="t-dot" aria-label="Slide 4"></button>
+    </div>
+    <button class="t-next" aria-label="Next">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand-name">Bethlehem Lebneh</p>
+      <p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life. From rejuvenating treatments to personalized wellness plans.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Explore</p>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="daily-care.html">Skin Concerns</a>
+        <a href="products.html">Products</a>
+        <a href="treatments.html">Services and Treatments</a>
+        <a href="blog.html">Blog</a>
+      </nav>
+    </div>
+    <div>
+      <p class="footer-col-title">Connect</p>
+      <nav class="footer-links">
+        <a href="contact.html">Contact Us</a>
+        <a href="contact.html">Book Now</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#2d2924"/></svg></a>
+        <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
+</footer>
+
+<button class="cart-bubble" aria-label="View cart">
+  <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  <span class="cart-count">0</span>
+</button>
+<script src="script.js"></script>
+</body>
+</html>

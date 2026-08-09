@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Services &amp; Treatments | Bethlehem Lebneh</title>
+<meta name="description" content="Explore clinical skin treatments, holistic wellness sessions, and personalized skincare services by Bethlehem Lebneh in Seattle."/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.treatments-intro { padding: 5rem 4rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; background: var(--cream-light); }
+.treatments-intro-text .section-title { font-size: clamp(2rem,4vw,3rem); font-style: italic; margin-bottom: 1.2rem; }
+.treatments-intro-text p { color: var(--text-mid); line-height: 1.9; font-size: .95rem; margin-bottom: 1rem; }
+.treatments-intro-img { aspect-ratio: 4/3; overflow: hidden; }
+.treatments-intro-img img { width: 100%; height: 100%; object-fit: cover; }
+.treatments-intro-img-ph { width: 100%; height: 100%; min-height: 320px; background: linear-gradient(135deg, #ddd5c8, #c8c0b4); }
+.clinical-section { padding: 5rem 4rem; background: var(--cream); }
+.clinical-section h2 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-style: italic; margin-bottom: .8rem; }
+.clinical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+.treatment-card { border: 1px solid rgba(0,0,0,.08); padding: 2.5rem; background: var(--cream-light); transition: box-shadow .3s, transform .3s; }
+.treatment-card:hover { box-shadow: 0 10px 32px rgba(0,0,0,.1); transform: translateY(-3px); }
+.treatment-label { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
+.treatment-title { font-family: var(--serif); font-size: 1.35rem; margin-bottom: .4rem; }
+.treatment-meta { font-size: .78rem; color: var(--gold); letter-spacing: .05em; margin-bottom: 1rem; }
+.treatment-desc { font-size: .88rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.5rem; }
+.holistic-section { background: var(--cream-light); }
+.holistic-heading { padding: 4rem 4rem 2rem; text-align: center; }
+.holistic-heading h2 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-style: italic; }
+.holistic-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.holistic-item { position: relative; }
+.holistic-img { width: 100%; aspect-ratio: 3/2; overflow: hidden; }
+.holistic-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.holistic-img:hover img { transform: scale(1.03); }
+.holistic-img-ph { width: 100%; aspect-ratio: 3/2; }
+.holistic-text { padding: 2.5rem 2rem 3rem; background: var(--cream-light); }
+.holistic-text h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .5rem; }
+.holistic-text .treatment-meta { margin-bottom: .8rem; }
+.holistic-text p { font-size: .9rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.5rem; }
+.plans-section { padding: 5rem 4rem; background: var(--charcoal-2); color: var(--cream); text-align: center; }
+.plans-section h2 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-style: italic; color: var(--cream); margin-bottom: 1rem; }
+.plans-section p { color: rgba(240,235,227,.6); max-width: 540px; margin: 0 auto 2rem; line-height: 1.8; }
+@media(max-width:900px){
+  .treatments-intro,.clinical-section,.holistic-heading{padding:4rem 1.5rem 2.5rem;}
+  .treatments-intro{grid-template-columns:1fr;gap:2rem;}
+  .clinical-grid{grid-template-columns:1fr;}
+  .holistic-pair{grid-template-columns:1fr;}
+  .plans-section{padding:4rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+<nav class="main-nav">
+  <div class="nav-left"><a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a></div>
+  <a href="index.html" class="nav-logo">
+    <svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/><circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/><circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/><polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/><polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/><polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/><polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/><line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/><line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/><line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/><line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/><text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text></svg>
+  </a>
+  <div class="nav-right"><a href="treatments.html" class="nav-link">Services and Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book">Book Now</a></div>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a><a href="treatments.html" class="nav-link">Services &amp; Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book" style="width:fit-content">Book Now</a>
+</div>
+
+<header class="page-hero">
+  <p class="page-hero-eyebrow">Restore &amp; Renew</p>
+  <h1 class="page-hero-title">Advanced Clinical<br>Skin Correctives</h1>
+  <p class="page-hero-sub">Precision treatments designed for measurable, lasting skin transformation — from targeted facials to full-body wellness.</p>
+</header>
+
+<section class="treatments-intro">
+  <div class="treatments-intro-text reveal">
+    <p class="section-eyebrow">The Approach</p>
+    <h2 class="section-title">Where Clinical Meets Conscious</h2>
+    <div class="section-divider"></div>
+    <p>Every treatment at Bethlehem Lebneh begins with a thorough skin consultation. We analyze your skin type, lifestyle, concerns, and goals before recommending any protocol.</p>
+    <p>Our treatments combine medical-grade actives and advanced modalities with a deeply personalized, mindful touch — because the best results come when precision meets care.</p>
+    <a href="contact.html" class="btn-pill">Book a Session →</a>
+  </div>
+  <div class="reveal">
+    <div class="treatments-intro-img">
+      <img src="images/treatment_hero.png" alt="Clinical skincare treatment" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <div class="treatments-intro-img-ph" style="display:none"></div>
+    </div>
+  </div>
+</section>
+
+<section class="clinical-section">
+  <div class="reveal">
+    <p class="section-eyebrow">Clinical Treatments</p>
+    <h2>Signature Skin Protocols</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="clinical-grid">
+    <div class="treatment-card reveal">
+      <p class="treatment-label">Anti-Aging</p>
+      <h3 class="treatment-title">The Longevity Sculpt</h3>
+      <p class="treatment-meta">[ Length: 75 Min &nbsp;|&nbsp; Price: $195 ]</p>
+      <p class="treatment-desc">A signature anti-aging facial combining microcurrent technology with peptide-rich infusions to lift, tone and remodel facial contours. Targets structural aging at the cellular level for results that build over time.</p>
+      <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+    </div>
+    <div class="treatment-card reveal">
+      <p class="treatment-label">Tone &amp; Texture</p>
+      <h3 class="treatment-title">Radiance &amp; Tone Correction</h3>
+      <p class="treatment-meta">[ Length: 60 Min &nbsp;|&nbsp; Price: $165 ]</p>
+      <p class="treatment-desc">A brightening treatment pairing chemical exfoliation with vitamin C infusion and brightening enzymes. Effectively targets hyperpigmentation, dullness, and uneven skin tone for a glass-skin finish.</p>
+      <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+    </div>
+    <div class="treatment-card reveal">
+      <p class="treatment-label">Barrier Repair</p>
+      <h3 class="treatment-title">The Recovery Infusion</h3>
+      <p class="treatment-meta">[ Length: 60 Min &nbsp;|&nbsp; Price: $145 ]</p>
+      <p class="treatment-desc">A post-treatment skin rescue protocol restoring the moisture barrier with ceramide-rich formulas, barrier-healing actives, and red LED therapy. Ideal after aggressive treatments or during a reactive skin flare.</p>
+      <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+    </div>
+    <div class="treatment-card reveal">
+      <p class="treatment-label">Resurfacing</p>
+      <h3 class="treatment-title">Advanced Chemical Resurfacing</h3>
+      <p class="treatment-meta">[ Length: 45 Min &nbsp;|&nbsp; Price: $185 ]</p>
+      <p class="treatment-desc">Medical-grade acid resurfacing targeting acne scarring, hyperpigmentation, and uneven skin texture. A series of treatments creates cumulative, dramatic improvements in overall skin quality and tone.</p>
+      <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+    </div>
+    <div class="treatment-card reveal" style="grid-column:1/-1">
+      <p class="treatment-label">Personalized Plan</p>
+      <h3 class="treatment-title">Customized Strategic Skin Plan</h3>
+      <p class="treatment-meta">[ Length: 90 Min &nbsp;|&nbsp; Price: $225 ]</p>
+      <p class="treatment-desc">A comprehensive consultation and treatment session where we design your complete skin journey — from daily home care to in-clinic treatment schedule. Includes a skin analysis, product guidance, lifestyle review, and a full custom protocol document to take home.</p>
+      <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+    </div>
+  </div>
+</section>
+
+<section class="holistic-section">
+  <div class="holistic-heading reveal">
+    <p class="section-eyebrow">Holistic Alignment</p>
+    <h2>Whole-Body Wellness</h2>
+    <div class="section-divider" style="margin:1rem auto"></div>
+    <p style="color:var(--text-mid);max-width:500px;margin:0 auto;font-size:.9rem">Movement, breathwork, and vitality practices to address the root causes of skin aging and stress-driven inflammation.</p>
+  </div>
+  <div class="holistic-pair">
+    <div class="holistic-item">
+      <div class="holistic-img">
+        <img src="images/yoga_about.png" alt="Somatic movement and breathwork session" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="holistic-img-ph" style="background:linear-gradient(135deg,#d8d0c8,#c8c0b8);display:none"></div>
+      </div>
+      <div class="holistic-text">
+        <h3>Somatic Movement &amp; Breathwork</h3>
+        <p class="treatment-meta">[ Length: 60 Min &nbsp;|&nbsp; Price: $120 ]</p>
+        <p>Private guidance in yoga and breathwork curated to down-regulate the nervous system and combat the "inflammaging" caused by chronic stress. Each session is adapted to your current state and goals.</p>
+        <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+      </div>
+    </div>
+    <div class="holistic-item">
+      <div class="holistic-img">
+        <img src="images/treatment_hero.png" alt="Lymphatic and vitality support session" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="holistic-img-ph" style="background:linear-gradient(135deg,#dce0e4,#ccd0d4);display:none"></div>
+      </div>
+      <div class="holistic-text">
+        <h3>Lymphatic &amp; Vitality Support</h3>
+        <p class="treatment-meta">[ Length: 45 Min &nbsp;|&nbsp; Price: $95 ]</p>
+        <p>Movement principles designed to clear systemic stagnation, improve lymphatic flow, and boost natural detoxification. Supports skin clarity, reduces puffiness, and improves overall vitality and energy levels.</p>
+        <a href="contact.html" class="btn-pill">Schedule a Session →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plans-section">
+  <p class="section-eyebrow">Ready to Begin?</p>
+  <h2>Book Your First Session</h2>
+  <p>Not sure which treatment is right for you? Start with a skin consultation and we'll design a protocol tailored exactly to your needs and goals.</p>
+  <a href="contact.html" class="btn-solid">Book Now →</a>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><p class="footer-brand-name">Bethlehem Lebneh</p><p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life.</p></div>
+    <div><p class="footer-col-title">Explore</p><nav class="footer-links"><a href="about.html">About</a><a href="daily-care.html">Skin Concerns</a><a href="products.html">Products</a><a href="treatments.html">Services and Treatments</a><a href="blog.html">Blog</a></nav></div>
+    <div><p class="footer-col-title">Connect</p><nav class="footer-links"><a href="contact.html">Contact Us</a><a href="contact.html">Book Now</a></nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="#2d2924"/><circle cx="17.5" cy="6.5" r="1" fill="#2d2924"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

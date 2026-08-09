@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Products | Bethlehem Lebneh</title>
+<meta name="description" content="Shop curated professional skincare products at Bethlehem Lebneh — cleansers, serums, moisturizers, SPF, masks, and devices."/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.product-tabs-bar { background: var(--cream-light); border-bottom: 1px solid rgba(0,0,0,.08); padding: 0 4rem; display: flex; gap: 0; overflow-x: auto; }
+.product-tab { padding: 1.1rem 1.8rem; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; border: none; background: none; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.product-tab:hover { color: var(--text-dark); }
+.product-tab.active { color: var(--text-dark); border-bottom-color: var(--text-dark); }
+.products-grid { padding: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; background: var(--cream-light); }
+.product-card { background: var(--cream); border: 1px solid rgba(0,0,0,.07); overflow: hidden; transition: box-shadow .3s, transform .3s; }
+.product-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.1); transform: translateY(-3px); }
+.product-img-wrap { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.product-img-ph { width: 100%; height: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+.product-body { padding: 1.5rem; }
+.product-brand { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: .4rem; }
+.product-name { font-family: var(--serif); font-size: 1.2rem; margin-bottom: .3rem; }
+.product-subtitle { font-size: .8rem; color: var(--text-muted); margin-bottom: .8rem; }
+.product-desc { font-size: .85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.2rem; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+.product-price { font-family: var(--serif); font-size: 1.3rem; }
+.btn-cart { display: flex; align-items: center; gap: .45rem; padding: .5rem 1.1rem; border: 1.5px solid var(--text-dark); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; background: none; cursor: pointer; transition: background .2s, color .2s; }
+.btn-cart:hover { background: var(--text-dark); color: var(--cream); }
+.btn-cart svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+@media(max-width:900px){ .products-grid{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;} .product-tabs-bar{padding:0 1rem;} }
+@media(max-width:540px){ .products-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+  <div class="nav-left"><a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a></div>
+  <a href="index.html" class="nav-logo">
+    <svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/><circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/><circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/><polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/><polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/><polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/><polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/><line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/><line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/><line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/><line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/><text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text></svg>
+  </a>
+  <div class="nav-right"><a href="treatments.html" class="nav-link">Services and Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book">Book Now</a></div>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a><a href="treatments.html" class="nav-link">Services &amp; Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book" style="width:fit-content">Book Now</a>
+</div>
+
+<header class="page-hero">
+  <p class="page-hero-eyebrow">Curated Collection</p>
+  <h1 class="page-hero-title">Shop the Edit</h1>
+  <p class="page-hero-sub">Professional-grade skincare products personally curated and recommended by Bethlehem Lebneh.</p>
+</header>
+
+<div class="product-tabs-bar">
+  <button class="product-tab active" data-category="all" id="tab-all">All</button>
+  <button class="product-tab" data-category="cleanser" id="tab-cleanser">Cleansers</button>
+  <button class="product-tab" data-category="serum" id="tab-serum">Serums</button>
+  <button class="product-tab" data-category="moisturizer" id="tab-moisturizer">Moisturizers</button>
+  <button class="product-tab" data-category="mask" id="tab-mask">Masks</button>
+  <button class="product-tab" data-category="spf" id="tab-spf">SPF</button>
+  <button class="product-tab" data-category="device" id="tab-device">Devices</button>
+</div>
+
+<div class="products-grid">
+  <!-- CLEANSERS -->
+  <div class="product-card reveal" data-category="cleanser">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#e8e4dc,#d8d4cc)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">PCA Skin</p>
+      <h2 class="product-name">Facial Wash</h2>
+      <p class="product-subtitle">Gentle daily cleanser</p>
+      <p class="product-desc">A gentle, pH-balanced cleanser that removes impurities without stripping the skin's natural moisture barrier.</p>
+      <div class="product-footer">
+        <span class="product-price">$38.00</span>
+        <button class="btn-cart add-to-cart" data-name="PCA Skin Facial Wash" data-price="38"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <div class="product-card reveal" data-category="cleanser">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#dce4e8,#ccd4d8)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">ClearSkin</p>
+      <h2 class="product-name">Foaming Cleanser</h2>
+      <p class="product-subtitle">Oil control formula</p>
+      <p class="product-desc">Lightweight foaming cleanser formulated for normal to oily skin, balancing sebum without over-drying.</p>
+      <div class="product-footer">
+        <span class="product-price">$32.00</span>
+        <button class="btn-cart add-to-cart" data-name="ClearSkin Foaming Cleanser" data-price="32"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- SERUMS -->
+  <div class="product-card reveal" data-category="serum">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#c8b880,#b8a870)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">PCA Skin</p>
+      <h2 class="product-name">Antioxidant Serum</h2>
+      <p class="product-subtitle">Antioxidant treatment</p>
+      <p class="product-desc">A potent antioxidant serum with vitamin C to neutralize free radicals, brighten and protect against environmental damage.</p>
+      <div class="product-footer">
+        <span class="product-price">$98.00</span>
+        <button class="btn-cart add-to-cart" data-name="PCA Antioxidant Serum" data-price="98"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <div class="product-card reveal" data-category="serum">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#dcd4cc,#ccc4bc)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">Comfort Zone</p>
+      <h2 class="product-name">Active Firming Serum</h2>
+      <p class="product-subtitle">Lifting peptide concentrate</p>
+      <p class="product-desc">A high-performance firming serum with lifting peptides and plant stem cells to visibly tighten and smooth the skin.</p>
+      <div class="product-footer">
+        <span class="product-price">$115.00</span>
+        <button class="btn-cart add-to-cart" data-name="Active Firming Serum" data-price="115"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- MOISTURIZERS -->
+  <div class="product-card reveal" data-category="moisturizer">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#e4dcd4,#d4ccc4)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">ClearSkin</p>
+      <h2 class="product-name">Lightweight Moisturizer</h2>
+      <p class="product-subtitle">Normal to oily skin</p>
+      <p class="product-desc">An oil-free, lightweight moisturizer that hydrates without clogging pores — perfect for oily and combination skin types.</p>
+      <div class="product-footer">
+        <span class="product-price">$54.00</span>
+        <button class="btn-cart add-to-cart" data-name="Lightweight Moisturizer" data-price="54"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <div class="product-card reveal" data-category="moisturizer">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#e8e4de,#d8d4cc)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">PCA Skin</p>
+      <h2 class="product-name">Collagen Hydrator</h2>
+      <p class="product-subtitle">Rich barrier cream</p>
+      <p class="product-desc">A rich, deeply hydrating cream with collagen-boosting actives that restores moisture and supports skin structure.</p>
+      <div class="product-footer">
+        <span class="product-price">$68.00</span>
+        <button class="btn-cart add-to-cart" data-name="PCA Collagen Hydrator" data-price="68"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- MASKS -->
+  <div class="product-card reveal" data-category="mask">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#c8d4c8,#b8c4b8)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">Comfort Zone</p>
+      <h2 class="product-name">Hydra Mask</h2>
+      <p class="product-subtitle">Intensive hydration</p>
+      <p class="product-desc">A cream-gel mask delivering an immediate burst of hydration with hyaluronic acid and aloe vera for plump, dewy skin.</p>
+      <div class="product-footer">
+        <span class="product-price">$62.00</span>
+        <button class="btn-cart add-to-cart" data-name="Comfort Zone Hydra Mask" data-price="62"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- SPF -->
+  <div class="product-card reveal" data-category="spf">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#e0dcd4,#d4d0c8)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">PCA Skin</p>
+      <h2 class="product-name">Sheer Tint SPF 45</h2>
+      <p class="product-subtitle">Broad spectrum UVA/UVB</p>
+      <p class="product-desc">A lightweight, tinted sunscreen with broad-spectrum protection. Elegant formula that works as a daily base.</p>
+      <div class="product-footer">
+        <span class="product-price">$50.00</span>
+        <button class="btn-cart add-to-cart" data-name="Sheer Tint SPF 45" data-price="50"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- DEVICES -->
+  <div class="product-card reveal" data-category="device">
+    <div class="product-img-wrap"><div class="product-img-ph" style="background:linear-gradient(135deg,#d0dce4,#c0ccd4)"></div></div>
+    <div class="product-body">
+      <p class="product-brand">Bio-Therapeutic</p>
+      <h2 class="product-name">bt-sculpt GEN2</h2>
+      <p class="product-subtitle">Microcurrent sculpting handheld</p>
+      <p class="product-desc">A microcurrent device created to support at-home skin fitness and sculpting as part of a guided regimen.</p>
+      <div class="product-footer">
+        <span class="product-price">$275.00</span>
+        <button class="btn-cart add-to-cart" data-name="bt-sculpt GEN2" data-price="275"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><p class="footer-brand-name">Bethlehem Lebneh</p><p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life.</p></div>
+    <div><p class="footer-col-title">Explore</p><nav class="footer-links"><a href="about.html">About</a><a href="daily-care.html">Skin Concerns</a><a href="products.html">Products</a><a href="treatments.html">Services and Treatments</a><a href="blog.html">Blog</a></nav></div>
+    <div><p class="footer-col-title">Connect</p><nav class="footer-links"><a href="contact.html">Contact Us</a><a href="contact.html">Book Now</a></nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="#2d2924"/><circle cx="17.5" cy="6.5" r="1" fill="#2d2924"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
+</footer>
+<button class="cart-bubble" aria-label="View cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg><span class="cart-count">0</span></button>
+<script src="script.js"></script>
+</body>
+</html>

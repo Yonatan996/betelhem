@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Blog | Bethlehem Lebneh</title>
+<meta name="description" content="Skin Intelligence Journal — research-backed articles on clinical skincare, holistic wellness, yoga, and beauty by Bethlehem Lebneh."/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.blog-grid { padding: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; background: var(--cream-light); }
+.blog-card { background: var(--cream); border: 1px solid rgba(0,0,0,.07); overflow: hidden; transition: box-shadow .3s, transform .3s; }
+.blog-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.1); transform: translateY(-3px); }
+.blog-card-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.blog-card:hover .blog-card-img img { transform: scale(1.04); }
+.blog-card-img-ph { width: 100%; aspect-ratio: 16/9; }
+.blog-card-body { padding: 1.6rem; }
+.blog-card-category { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: .5rem; }
+.blog-card-title { font-family: var(--serif); font-size: 1.15rem; line-height: 1.4; margin-bottom: .7rem; }
+.blog-card-excerpt { font-size: .85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.blog-card-meta { display: flex; justify-content: space-between; align-items: center; font-size: .72rem; color: var(--text-muted); }
+.read-more { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dark); border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color .2s; }
+.read-more:hover { color: var(--gold); border-color: var(--gold); }
+@media(max-width:900px){ .blog-grid{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;} }
+@media(max-width:540px){ .blog-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+  <div class="nav-left"><a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a></div>
+  <a href="index.html" class="nav-logo">
+    <svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/><circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/><circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/><polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/><polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/><polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/><polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/><line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/><line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/><line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/><line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/><text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text></svg>
+  </a>
+  <div class="nav-right"><a href="treatments.html" class="nav-link">Services and Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book">Book Now</a></div>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a><a href="treatments.html" class="nav-link">Services &amp; Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-book" style="width:fit-content">Book Now</a>
+</div>
+
+<header class="page-hero">
+  <p class="page-hero-eyebrow">Skin Intelligence Journal</p>
+  <h1 class="page-hero-title">Knowledge Is Skincare</h1>
+  <p class="page-hero-sub">Research-backed insights on clinical skincare, holistic wellness, and the art of conscious beauty.</p>
+</header>
+
+<section class="blog-grid">
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#e8e0d4,#d8d0c4)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Skin Science</p>
+      <h2 class="blog-card-title">Understanding Your Skin Barrier: The Foundation of Healthy Skin</h2>
+      <p class="blog-card-excerpt">The skin barrier is your body's first line of defense. When it's compromised, everything from sensitivity to premature aging follows. Learn how to protect and rebuild it.</p>
+      <div class="blog-card-meta"><span>June 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#c8d0c8,#b8c0b8)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Ingredients</p>
+      <h2 class="blog-card-title">Retinol vs. Retinoids: Which One Is Right for Your Skin?</h2>
+      <p class="blog-card-excerpt">The retinoid family can be confusing. We break down the differences between retinol, tretinoin, and bakuchiol — and how to choose the right strength for your goals.</p>
+      <div class="blog-card-meta"><span>May 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#dce4e8,#ccd4d8)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Wellness</p>
+      <h2 class="blog-card-title">How Chronic Stress Ages Your Skin — And What to Do About It</h2>
+      <p class="blog-card-excerpt">Cortisol breaks down collagen, impairs barrier function, and triggers inflammation. Discover the science of "inflammaging" and how breathwork can slow it down.</p>
+      <div class="blog-card-meta"><span>May 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#d8c8a8,#c8b898)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Hyperpigmentation</p>
+      <h2 class="blog-card-title">The Complete Guide to Fading Dark Spots and Post-Inflammatory Pigmentation</h2>
+      <p class="blog-card-excerpt">From alpha arbutin to tranexamic acid, there are more effective brightening options than ever. Here's how to build a protocol that actually works for your skin tone.</p>
+      <div class="blog-card-meta"><span>April 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#e4dce8,#d4ccd8)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Yoga &amp; Movement</p>
+      <h2 class="blog-card-title">Face Yoga and Microcurrent: Do They Really Lift and Sculpt?</h2>
+      <p class="blog-card-excerpt">We explore the science behind facial muscle stimulation, what face yoga can realistically do, and how professional microcurrent compares for structural anti-aging results.</p>
+      <div class="blog-card-meta"><span>April 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#e0d8d0,#d0c8c0)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Nutrition</p>
+      <h2 class="blog-card-title">Eating for Radiance: The Gut-Skin Connection Explained</h2>
+      <p class="blog-card-excerpt">Your gut microbiome directly influences skin inflammation, hydration, and clarity. Discover the foods that feed your skin from the inside out.</p>
+      <div class="blog-card-meta"><span>March 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#c8d8e0,#b8c8d0)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Sun Protection</p>
+      <h2 class="blog-card-title">SPF Every Day: Why Sunscreen Is Your Most Important Anti-Aging Product</h2>
+      <p class="blog-card-excerpt">UV damage accounts for up to 80% of visible skin aging. We explain how to choose the right SPF, how much to use, and why reapplication matters more than you think.</p>
+      <div class="blog-card-meta"><span>March 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#d8e0d4,#c8d0c4)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Acne</p>
+      <h2 class="blog-card-title">Breaking the Acne Cycle: A Holistic Framework That Actually Works</h2>
+      <p class="blog-card-excerpt">Clearing acne requires more than topical treatments. We walk through a comprehensive approach addressing sebum regulation, diet, stress, hormones, and targeted actives.</p>
+      <div class="blog-card-meta"><span>February 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#e8dcd0,#d8ccc0)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Personal</p>
+      <h2 class="blog-card-title">My Journey: How Healing My Skin Taught Me to Heal Myself</h2>
+      <p class="blog-card-excerpt">A personal reflection on the connection between inner healing and outer radiance — and how my own skin struggles became the foundation of my practice.</p>
+      <div class="blog-card-meta"><span>January 2025</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#d0d8e4,#c0c8d4)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Clinical</p>
+      <h2 class="blog-card-title">Chemical Peels Demystified: What to Expect Before, During, and After</h2>
+      <p class="blog-card-excerpt">Chemical peels are one of the most effective resurfacing tools available. Here's everything you need to know to prepare for your first peel and maximize your results.</p>
+      <div class="blog-card-meta"><span>December 2024</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#e4d4c4,#d4c4b4)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Wellness</p>
+      <h2 class="blog-card-title">Lymphatic Drainage for Skin: The Science Behind the Glow</h2>
+      <p class="blog-card-excerpt">Sluggish lymphatic flow contributes to puffiness, dullness, and toxin buildup. We explore how lymphatic massage and movement can transform your skin's clarity and vitality.</p>
+      <div class="blog-card-meta"><span>November 2024</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+  <article class="blog-card reveal">
+    <div class="blog-card-img"><div class="blog-card-img-ph" style="background:linear-gradient(135deg,#c4d0c4,#b4c0b4)"></div></div>
+    <div class="blog-card-body">
+      <p class="blog-card-category">Ingredients</p>
+      <h2 class="blog-card-title">Niacinamide: The Multitasking Ingredient Every Skin Type Needs</h2>
+      <p class="blog-card-excerpt">From regulating oil production to fading dark spots and strengthening the skin barrier, niacinamide does it all. Learn how to incorporate it effectively into your routine.</p>
+      <div class="blog-card-meta"><span>October 2024</span><a href="#" class="read-more">Read More</a></div>
+    </div>
+  </article>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><p class="footer-brand-name">Bethlehem Lebneh</p><p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life.</p></div>
+    <div><p class="footer-col-title">Explore</p><nav class="footer-links"><a href="about.html">About</a><a href="daily-care.html">Skin Concerns</a><a href="products.html">Products</a><a href="treatments.html">Services and Treatments</a><a href="blog.html">Blog</a></nav></div>
+    <div><p class="footer-col-title">Connect</p><nav class="footer-links"><a href="contact.html">Contact Us</a><a href="contact.html">Book Now</a></nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="#2d2924"/><circle cx="17.5" cy="6.5" r="1" fill="#2d2924"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
