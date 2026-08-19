@@ -1,127 +1,931 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Products | Bethlehem Lebneh</title>
-<meta name="description" content="Shop curated professional skincare products at Bethlehem Lebneh — cleansers, serums, moisturizers, SPF, masks, and devices."/>
-<link rel="stylesheet" href="styles.css"/>
-<style>
-.product-tabs-bar { background: var(--cream-light); border-bottom: 1px solid rgba(0,0,0,.08); padding: 0 4rem; display: flex; gap: 0; overflow-x: auto; }
-.product-tab { padding: 1.1rem 1.8rem; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; border: none; background: none; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
-.product-tab:hover { color: var(--text-dark); }
-.product-tab.active { color: var(--text-dark); border-bottom-color: var(--text-dark); }
-.products-grid { padding: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; background: var(--cream-light); }
-.product-card { background: var(--cream); border: 1px solid rgba(0,0,0,.07); overflow: hidden; transition: box-shadow .3s, transform .3s; }
-.product-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.1); transform: translateY(-3px); }
-.product-img-wrap { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.product-img-ph { width: 100%; height: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-.product-body { padding: 1.5rem; }
-.product-brand { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: .4rem; }
-.product-name { font-family: var(--serif); font-size: 1.2rem; margin-bottom: .3rem; }
-.product-subtitle { font-size: .8rem; color: var(--text-muted); margin-bottom: .8rem; }
-.product-desc { font-size: .85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.2rem; }
-.product-footer { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
-.product-price { font-family: var(--serif); font-size: 1.3rem; }
-.btn-cart { display: flex; align-items: center; gap: .45rem; padding: .5rem 1.1rem; border: 1.5px solid var(--text-dark); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; background: none; cursor: pointer; transition: background .2s, color .2s; }
-.btn-cart:hover { background: var(--text-dark); color: var(--cream); }
-.btn-cart svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
-@media(max-width:900px){ .products-grid{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;} .product-tabs-bar{padding:0 1rem;} }
-@media(max-width:540px){ .products-grid{grid-template-columns:1fr;} }
-</style>
-</head>
-<body>
-<nav class="main-nav">
-  <div class="nav-left"><a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a></div>
-  <a href="index.html" class="nav-logo">
-    <svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b8a96a" stroke-width="1"/><circle cx="50" cy="50" r="41" fill="none" stroke="#b8a96a" stroke-width=".4"/><circle cx="50" cy="50" r="24" fill="none" stroke="#4e7080" stroke-width=".8"/><polygon points="50,4 52.5,8 50,12 47.5,8" fill="#b8a96a"/><polygon points="96,50 92,47.5 88,50 92,52.5" fill="#b8a96a"/><polygon points="50,96 52.5,92 50,88 47.5,92" fill="#b8a96a"/><polygon points="4,50 8,47.5 12,50 8,52.5" fill="#b8a96a"/><line x1="50" y1="12" x2="50" y2="36" stroke="#b8a96a" stroke-width=".7"/><line x1="64" y1="50" x2="88" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="50" y1="64" x2="50" y2="88" stroke="#b8a96a" stroke-width=".7"/><line x1="12" y1="50" x2="36" y2="50" stroke="#b8a96a" stroke-width=".7"/><line x1="62" y1="38" x2="79" y2="21" stroke="#b8a96a" stroke-width=".5"/><line x1="62" y1="62" x2="79" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="62" x2="21" y2="79" stroke="#b8a96a" stroke-width=".5"/><line x1="38" y1="38" x2="21" y2="21" stroke="#b8a96a" stroke-width=".5"/><text x="50" y="58" text-anchor="middle" font-family="Playfair Display,Georgia,serif" font-size="24" fill="#4e7080" font-style="italic" font-weight="700">B</text></svg>
-  </a>
-  <div class="nav-right"><a href="treatments.html" class="nav-link">Services and Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="https://bethelhemlebnehskincare.as.me/schedule/392299ca" class="nav-book">Book Now</a></div>
-  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-nav" id="mobile-nav">
-  <a href="about.html" class="nav-link">About</a><a href="daily-care.html" class="nav-link">Skin Concerns</a><a href="products.html" class="nav-link">Products</a><a href="treatments.html" class="nav-link">Services &amp; Treatments</a><a href="blog.html" class="nav-link">Blog</a><a href="https://bethelhemlebnehskincare.as.me/schedule/392299ca" class="nav-book" style="width:fit-content">Book Now</a>
-</div>
-
-<header class="page-hero">
-  <p class="page-hero-eyebrow">Curated Collection</p>
-  <h1 class="page-hero-title">Shop the Edit</h1>
-  <p class="page-hero-sub">Professional-grade skincare products personally curated and recommended by Bethlehem Lebneh.</p>
-</header>
-
-<div class="product-tabs-bar">
-  <button class="product-tab active" data-category="all" id="tab-all">All</button>
-  <button class="product-tab" data-category="cleanser" id="tab-cleanser">Cleansers</button>
-  <button class="product-tab" data-category="serum" id="tab-serum">Serums</button>
-  <button class="product-tab" data-category="moisturizer" id="tab-moisturizer">Moisturizers</button>
-  <button class="product-tab" data-category="mask" id="tab-mask">Masks</button>
-  <button class="product-tab" data-category="spf" id="tab-spf">SPF</button>
-  <button class="product-tab" data-category="device" id="tab-device">Devices</button>
-</div>
-
-<div class="products-grid">
-<script>
-  (function() {
-    const defaultProducts = [
-      { id: 1, brand: "PCA Skin", name: "Facial Wash", subtitle: "Gentle daily cleanser", desc: "A gentle, pH-balanced cleanser that removes impurities without stripping the skin's natural moisture barrier.", price: 38, category: "cleanser", gradient: "linear-gradient(135deg,#e8e4dc,#d8d4cc)" },
-      { id: 2, brand: "ClearSkin", name: "Foaming Cleanser", subtitle: "Oil control formula", desc: "Lightweight foaming cleanser formulated for normal to oily skin, balancing sebum without over-drying.", price: 32, category: "cleanser", gradient: "linear-gradient(135deg,#dce4e8,#ccd4d8)" },
-      { id: 3, brand: "PCA Skin", name: "Antioxidant Serum", subtitle: "Antioxidant treatment", desc: "A potent antioxidant serum with vitamin C to neutralize free radicals, brighten and protect against environmental damage.", price: 98, category: "serum", gradient: "linear-gradient(135deg,#c8b880,#b8a870)" },
-      { id: 4, brand: "Comfort Zone", name: "Active Firming Serum", subtitle: "Lifting peptide concentrate", desc: "A high-performance firming serum with lifting peptides and plant stem cells to visibly tighten and smooth the skin.", price: 115, category: "serum", gradient: "linear-gradient(135deg,#dcd4cc,#ccc4bc)" },
-      { id: 5, brand: "ClearSkin", name: "Lightweight Moisturizer", subtitle: "Normal to oily skin", desc: "An oil-free, lightweight moisturizer that hydrates without clogging pores — perfect for oily and combination skin types.", price: 54, category: "moisturizer", gradient: "linear-gradient(135deg,#e4dcd4,#d4ccc4)" },
-      { id: 6, brand: "PCA Skin", name: "Collagen Hydrator", subtitle: "Rich barrier cream", desc: "A rich, deeply hydrating cream with collagen-boosting actives that restores moisture and supports skin structure.", price: 68, category: "moisturizer", gradient: "linear-gradient(135deg,#e8e4de,#d8d4cc)" },
-      { id: 7, brand: "Comfort Zone", name: "Hydra Mask", subtitle: "Intensive hydration", desc: "A cream-gel mask delivering an immediate burst of hydration with hyaluronic acid and aloe vera for plump, dewy skin.", price: 62, category: "mask", gradient: "linear-gradient(135deg,#c8d4c8,#b8c4b8)" },
-      { id: 8, brand: "PCA Skin", name: "Sheer Tint SPF 45", subtitle: "Broad spectrum UVA/UVB", desc: "A lightweight, tinted sunscreen with broad-spectrum protection. Elegant formula that works as a daily base.", price: 50, category: "spf", gradient: "linear-gradient(135deg,#e0dcd4,#d4d0c8)" },
-      { id: 9, brand: "Bio-Therapeutic", name: "bt-sculpt GEN2", subtitle: "Microcurrent sculpting handheld", desc: "A microcurrent device created to support at-home skin fitness and sculpting as part of a guided regimen.", price: 275, category: "device", gradient: "linear-gradient(135deg,#d0dce4,#c0ccd4)" }
-    ];
-    let siteProds = JSON.parse(localStorage.getItem('bl_site_products'));
-    if (!siteProds) {
-      siteProds = defaultProducts;
-      localStorage.setItem('bl_site_products', JSON.stringify(siteProds));
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Bethlehem Lebneh Skin &amp; Wellness</title>
+  <meta name="description" content="Buy Comfort Zone, Bio-Therapeutic, and PCA Skin products. Shop clinical-grade skincare curated by your trusted Seattle esthetician in Queen Anne." />
+  <meta name="keywords" content="Buy Comfort Zone, Bio-Therapeutic, and PCA Skin products, Buy Comfort Zone skin products, Buy Bio-Therapeutic skin products, Buy PCA Skin products, Seattle Skincare" />
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    body.products-page {
+      background: #FDFCF8;
+      color: #1A1A1A;
     }
-    
-    // Select the grid which is just above this script
-    const grid = document.currentScript.previousElementSibling;
-    let gridHtml = '';
-    siteProds.forEach(p => {
-      gridHtml += `
-        <div class="product-card reveal" data-category="${p.category}">
-          <div class="product-img-wrap"><div class="product-img-ph" style="background:${p.gradient}"></div></div>
-          <div class="product-body">
-            <p class="product-brand">${p.brand}</p>
-            <h2 class="product-name">${p.name}</h2>
-            <p class="product-subtitle">${p.subtitle}</p>
-            <p class="product-desc">${p.desc}</p>
-            <div class="product-footer">
-              <span class="product-price">$${p.price.toFixed(2)}</span>
-              <button class="btn-cart add-to-cart" data-name="${p.brand} ${p.name}" data-price="${p.price}">
-                <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>Add to Cart
-              </button>
-            </div>
+
+    /* ─── Hero wrapper — owns all padding, no .container conflict ── */
+    .products-hero-wrap {
+      width: 100%;
+      padding: 0 7rem;
+    }
+
+    .products-hero-breadcrumb {
+      padding-top: 120px;
+      padding-bottom: 0;
+      font-size: 0.5rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(26, 26, 26, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .products-hero {
+      padding: 3rem 0 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+    }
+
+    .products-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: #1A1A1A;
+    }
+
+    .products-title em {
+      font-style: italic;
+      color: #C5A059;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: #C5A059;
+      margin-bottom: 1.5rem;
+    }
+
+    .products-intro {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(26, 26, 26, 0.55);
+      line-height: 2;
+      padding-bottom: 0.5rem;
+    }
+
+    /* pill button — matches other pages exactly */
+    .hero-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 2rem;
+      border: 1px solid #1A1A1A;
+      border-radius: 100px;
+      background: transparent;
+      color: #1A1A1A;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.35s;
+      margin-top: 1.5rem;
+    }
+
+    .hero-pill-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      background: #1A1A1A;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    .hero-pill-btn:hover::before {
+      transform: scaleX(1);
+    }
+
+    .hero-pill-btn:hover {
+      color: #FDFCF8;
+    }
+
+    .hero-pill-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .products-hero-wrap {
+        padding: 0 2.5rem;
+      }
+
+      .products-hero-breadcrumb {
+        padding-top: 110px;
+      }
+
+      .products-hero {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-hero-wrap {
+        padding: 0 1.5rem;
+      }
+
+      .products-hero-breadcrumb {
+        padding-top: 100px;
+      }
+
+      .products-hero {
+        padding-bottom: 4rem;
+        gap: 2.5rem;
+      }
+    }
+
+    /* ─── Sticky Category Nav ───────────── */
+    .products-cat-nav {
+      position: sticky;
+      top: 80px;
+      z-index: 20;
+      background: rgba(248, 243, 235, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(54, 49, 46, 0.1);
+    }
+
+    .products-cat-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0;
+    }
+
+    .products-cat-nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-nav-link {
+      flex-shrink: 0;
+      padding: 1.1rem 1.4rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(54, 49, 46, 0.55);
+      border-bottom: 2px solid transparent;
+      transition: color 0.22s, border-color 0.22s;
+      white-space: nowrap;
+      cursor: none;
+    }
+
+    .cat-nav-link:hover,
+    .cat-nav-link.active {
+      color: var(--charcoal);
+      border-bottom-color: var(--charcoal);
+    }
+
+    /* ─── Category Sections ─────────────── */
+    .products-section {
+      padding: 4rem 0;
+    }
+
+    .products-section:first-child {
+      padding-top: 5rem;
+    }
+
+    .category-section {
+      padding: 4rem 0 2rem;
+      border-top: 1px solid rgba(54, 49, 46, 0.08);
+    }
+
+    .category-section:first-child {
+      border-top: none;
+      padding-top: 5rem;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .category-header-left {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .category-eyebrow {
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .category-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.05;
+      color: var(--charcoal);
+    }
+
+    .category-desc {
+      font-size: 0.78rem;
+      color: rgba(54, 49, 46, 0.6);
+      line-height: 1.7;
+      max-width: 320px;
+      text-align: right;
+    }
+
+    /* ─── Product Grid ──────────────────── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid rgba(54, 49, 46, 0.07);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 12px 40px rgba(54, 49, 46, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .product-img-area {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #f5f0e8;
+      position: relative;
+    }
+
+    .product-img-area img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      mix-blend-mode: multiply;
+    }
+
+    .product-card:hover .product-img-area img {
+      transform: scale(1.06);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(54, 49, 46, 0.84);
+      color: #fff;
+      font-size: 0.48rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.65rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .product-body {
+      padding: 1.4rem 1.4rem 0;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-brand-tag {
+      font-size: 0.5rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #c5a059;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-brand-tag[data-brand="bio-therapeutic"] {
+      color: #7aa7c7;
+    }
+
+    .product-brand-tag[data-brand="pca-skin"] {
+      color: #8c7bc2;
+    }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-subtitle {
+      font-size: 0.72rem;
+      color: rgba(54, 49, 46, 0.55);
+      margin-bottom: 0.9rem;
+    }
+
+    .product-description {
+      font-size: 0.76rem;
+      line-height: 1.8;
+      color: rgba(54, 49, 46, 0.68);
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── Product Footer (price + CTA) ──── */
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.4rem 1.4rem;
+      border-top: 1px solid rgba(54, 49, 46, 0.06);
+      margin-top: auto;
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .btn-add-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.2rem;
+      border: 1px solid var(--charcoal);
+      background: transparent;
+      color: var(--charcoal);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.32s;
+      white-space: nowrap;
+    }
+
+    .btn-add-cart::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--charcoal);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    .btn-add-cart:hover::before {
+      transform: scaleX(1);
+    }
+
+    .btn-add-cart:hover {
+      color: var(--alabaster);
+    }
+
+    .btn-add-cart span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-add-cart svg {
+      width: 13px;
+      height: 13px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .btn-add-cart.added {
+      background: #2d6a4f;
+      border-color: #2d6a4f;
+      color: #fff;
+    }
+
+    .btn-add-cart.added::before {
+      display: none;
+    }
+
+    /* ─── Filter bar ────────────────────── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding: 1.5rem 0;
+    }
+
+    .filter-chip {
+      border: 1px solid rgba(54, 49, 46, 0.15);
+      padding: 0.6rem 1rem;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: all 0.22s ease;
+      background: transparent;
+      color: var(--charcoal);
+      cursor: none;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      background: var(--charcoal);
+      color: var(--alabaster);
+      border-color: var(--charcoal);
+    }
+
+    /* ─── Responsive ────────────────────── */
+    @media (max-width: 1024px) {
+      .products-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .category-header {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .category-desc {
+        text-align: left;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .products-hero-breadcrumb {
+        padding-top: 100px;
+      }
+
+      .products-hero {
+        padding: 2rem 0 4rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="products-page">
+  <div id="cursor"></div>
+  <div id="cursor-label">Open<br />Link</div>
+
+  <!-- Navbar -->
+  <nav class="fixed nav-backdrop">
+    <div class="container nav-main-container" style="height: 80px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem;">
+      <div class="flex items-center desktop-nav-left" style="justify-content: space-between; width: 100%; padding-right: 2rem;">
+        <div class="nav-group"><a href="about.html" class="nav-link" style="padding-bottom: 1rem;">About</a></div>
+        <div class="nav-group">
+          <a href="daily-care.html" class="nav-link" style="padding-bottom:1rem;">Skin Concerns</a>
+          <div class="dropdown-menu">
+            <a href="aging-wrinkles.html" class="dropdown-item">Aging &amp; Wrinkles</a>
+            <a href="acne-clear.html" class="dropdown-item">Acne-Clear</a>
+            <a href="dry-skin.html" class="dropdown-item">Dry Skin</a>
+            <a href="sensitive-skin-concern.html" class="dropdown-item">Sensitive Skin</a>
+            <a href="brightening.html" class="dropdown-item">Brightening</a>
+            <a href="dark-spot.html" class="dropdown-item">Dark Spot</a>
           </div>
         </div>
-      `;
-    });
-    grid.innerHTML = gridHtml;
-  })();
-</script>
-</div>
+        <div class="nav-group">
+          <a href="products.html" class="nav-link" style="padding-bottom:1rem;">Products</a>
+          <div class="dropdown-menu">
+            <a href="products.html" class="dropdown-item">Shop All</a>
+            <a href="products.html#category-cleansers" class="dropdown-item">Cleansers</a>
+            <a href="products.html#category-serums" class="dropdown-item">Serums</a>
+            <a href="products.html#category-moisturizers" class="dropdown-item">Moisturizers</a>
+            <a href="products.html#category-masks" class="dropdown-item">Masks</a>
+            <a href="products.html#category-spf" class="dropdown-item">SPF</a>
+            <a href="products.html#category-devices" class="dropdown-item">Devices</a>
+          </div>
+        </div>
+      </div>
+      <a href="index.html" class="logo-image" style="display: flex; align-items: center; justify-content: center; height: 100%; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"><img src="Logo.webp" alt="Bethlehem Lebneh" style="height: 52px; width: auto; object-fit: contain;"></a>
+      <div class="flex items-center desktop-nav-right" style="justify-content: flex-end; gap: 3rem; width: 100%; padding-left: 2rem;">
+        <div class="nav-group"><a href="treatments.html" class="nav-link" style="padding-bottom: 1rem;">Services and Treatments</a></div>
+        <div class="nav-group">
+          <a href="blog.html" class="nav-link" style="padding-bottom:1rem;">Blog</a>
+          <div class="dropdown-menu right">
+            <a href="wellness.html" class="dropdown-item">Wellness</a>
+          </div>
+        </div>
+        <a href="https://bethelhemlebnehskincare.as.me" target="_blank" class="nav-link nav-book-btn" style="padding: 0.5rem 1rem;">Book Now</a>
+      </div>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div><p class="footer-brand-name">Bethlehem Lebneh</p><p class="footer-desc">At Bethlehem Lebneh, we specialize in luxury skincare, wellness, and holistic beauty services to help you embrace a golden approach to life.</p></div>
-    <div><p class="footer-col-title">Explore</p><nav class="footer-links"><a href="about.html">About</a><a href="daily-care.html">Skin Concerns</a><a href="products.html">Products</a><a href="treatments.html">Services and Treatments</a><a href="blog.html">Blog</a></nav></div>
-    <div><p class="footer-col-title">Connect</p><nav class="footer-links"><a href="contact.html">Contact Us</a><a href="https://bethelhemlebnehskincare.as.me/schedule/392299ca">Book Now</a></nav>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="#2d2924"/><circle cx="17.5" cy="6.5" r="1" fill="#2d2924"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="#" aria-label="Message"><svg viewBox="0 0 24 24" fill="rgba(240,235,227,.7)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></a>
+      <button class="mobile-toggle" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLeft = document.querySelector('.desktop-nav-left');
+      const navRight = document.querySelector('.desktop-nav-right');
+      if (!navLeft || !navRight) return;
+
+      const mobileMenu = document.createElement('div');
+      mobileMenu.className = 'mobile-menu-overlay';
+      mobileMenu.innerHTML = `
+        <div class="mobile-menu-content">
+          ${navLeft.innerHTML}
+          ${navRight.innerHTML}
+        </div>
+      `;
+      document.querySelector('nav.fixed').appendChild(mobileMenu);
+
+      const toggleBtn = document.querySelector('.mobile-toggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          toggleBtn.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+          document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+      }
+
+      const mobileGroups = mobileMenu.querySelectorAll('.nav-group');
+      mobileGroups.forEach(group => {
+        const hasDropdown = group.querySelector('.dropdown-menu');
+        if (hasDropdown) {
+          const mainLink = group.querySelector('.nav-link');
+          const indicator = document.createElement('span');
+          indicator.innerHTML = '▾';
+          indicator.style.marginLeft = '0.5rem';
+          indicator.style.fontSize = '0.8em';
+          indicator.style.transition = 'transform 0.3s ease';
+          indicator.style.display = 'inline-block';
+          mainLink.appendChild(indicator);
+
+          mainLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            group.classList.toggle('open');
+            indicator.style.transform = group.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          });
+        }
+      });
+    });
+  </script>
+
+  <!-- Nav scroll transparency script -->
+  <script src="navbar-theme.js"></script>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <div class="products-hero-wrap">
+    <nav class="products-hero-breadcrumb" aria-label="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="products-hero-breadcrumb-sep">·</span>
+      <span class="products-hero-breadcrumb-current">Shop All Products</span>
+    </nav>
+
+    <header class="products-hero">
+      <div>
+        <h1 class="products-title">
+          Shop The<br><em>Product Edit.</em>
+        </h1>
+      </div>
+      <div>
+        <div class="hero-divider"></div>
+        <p class="products-intro">
+          A focused collection of professional skincare brands used in practice and recommended for clients. Browse by
+          category to find exactly what your skin needs.
+        </p>
+        <a href="#cleansers" class="hero-pill-btn"><span>Explore Products</span></a>
+      </div>
+    </header>
+  </div>
+
+  <!-- ─── STICKY CATEGORY NAV ───────────────────────────── -->
+  <nav class="products-cat-nav" aria-label="Product categories">
+    <div class="container">
+      <div class="products-cat-nav-inner" id="cat-nav-links">
+        <a href="#cleansers" class="cat-nav-link active" data-cat="cleansers">Cleansers</a>
+        <a href="#serums" class="cat-nav-link" data-cat="serums">Serums</a>
+        <a href="#moisturizers" class="cat-nav-link" data-cat="moisturizers">Moisturizers</a>
+        <a href="#masks" class="cat-nav-link" data-cat="masks">Masks</a>
+        <a href="#spf" class="cat-nav-link" data-cat="spf">SPF</a>
+        <a href="#devices" class="cat-nav-link" data-cat="devices">Devices</a>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">© 2025 Bethlehem Lebneh. All rights reserved.</div>
-</footer>
-<button class="cart-bubble" aria-label="View cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg><span class="cart-count">0</span></button>
-<script src="script.js"></script>
+  </nav>
+
+  <!-- ─── PRODUCT CATALOG ──────────────────────────────── -->
+  <main id="catalog">
+
+    <!-- CLEANSERS -->
+    <section class="category-section" id="cleansers">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">01 / Category</span>
+            <h2 class="category-title">Cleansers</h2>
+          </div>
+          <p class="category-desc">Daily cleansing and gentle reset for all skin types.</p>
+        </div>
+        <div class="product-grid" id="grid-cleansers"></div>
+      </div>
+    </section>
+
+    <!-- SERUMS -->
+    <section class="category-section" id="serums">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">02 / Category</span>
+            <h2 class="category-title">Serums</h2>
+          </div>
+          <p class="category-desc">Targeted correction, hydration, and brightening support.</p>
+        </div>
+        <div class="product-grid" id="grid-serums"></div>
+      </div>
+    </section>
+
+    <!-- MOISTURIZERS -->
+    <section class="category-section" id="moisturizers">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">03 / Category</span>
+            <h2 class="category-title">Moisturizers</h2>
+          </div>
+          <p class="category-desc">Barrier support, comfort, and lasting hydration.</p>
+        </div>
+        <div class="product-grid" id="grid-moisturizers"></div>
+      </div>
+    </section>
+
+    <!-- MASKS -->
+    <section class="category-section" id="masks">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">04 / Category</span>
+            <h2 class="category-title">Masks</h2>
+          </div>
+          <p class="category-desc">Weekly treatment and skin refinement rituals.</p>
+        </div>
+        <div class="product-grid" id="grid-masks"></div>
+      </div>
+    </section>
+
+    <!-- SPF -->
+    <section class="category-section" id="spf">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">05 / Category</span>
+            <h2 class="category-title">SPF</h2>
+          </div>
+          <p class="category-desc">Daily protection and environmental defense.</p>
+        </div>
+        <div class="product-grid" id="grid-spf"></div>
+      </div>
+    </section>
+
+    <!-- DEVICES -->
+    <section class="category-section" id="devices">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-header-left">
+            <span class="category-eyebrow">06 / Category</span>
+            <h2 class="category-title">Devices</h2>
+          </div>
+          <p class="category-desc">At-home technology to support your skin fitness.</p>
+        </div>
+        <div class="product-grid" id="grid-devices"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────── -->
+  <footer>
+    <div class="container grid grid-cols-4 gap-10">
+      <div style="grid-column: span 2;">
+        <h2 class="logo-text mb-6" style="font-size: 1.5rem; letter-spacing: 0.05em; font-weight: 300;">Bethlehem Lebneh
+        </h2>
+        <p class="text-xs text-stone leading-relaxed max-w-sm">
+          A curated blend of clinical skincare, personalized wellness, and thoughtful retail recommendations designed to
+          support lasting skin confidence.
+        </p>
+      </div>
+                        <div>
+        <p class="section-label text-stone">Explore</p>
+        <ul style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <li><a href="about.html" class="text-xs text-silver nav-link">About</a></li>
+          <li><a href="daily-care.html" class="text-xs text-silver nav-link">Skin Concerns</a></li>
+          <li><a href="products.html" class="text-xs text-silver nav-link">Products</a></li>
+          <li><a href="treatments.html" class="text-xs text-silver nav-link">Services and Treatments</a></li>
+          <li><a href="blog.html" class="text-xs text-silver nav-link">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="section-label text-stone">Connect</p>
+        <ul style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <li><a href="contact.html" class="text-xs text-silver nav-link" style="color: var(--gold);">Contact Us</a></li>
+          <li><a href="https://bethelhemlebnehskincare.as.me" class="text-xs text-silver nav-link">Book Now</a></li>
+                    <li style="margin-top: 0.5rem;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <a href="https://www.instagram.com/aureliavie_lux?igsh=MTBwMzg3cmhyMzVyZA%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram" style="color: var(--silver); transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--silver)'">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </a>
+              <a href="https://www.facebook.com/share/1Ah2JhHrfn/?mibextid=wwXIfr" target="_blank" aria-label="Facebook" style="color: var(--silver); transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--silver)'">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@bethlehemlebneh" target="_blank" aria-label="YouTube" style="color: var(--silver); transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--silver)'">
+                <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+              <a href="http://www.twitter.com/oxygenskinsmar1" target="_blank" aria-label="X" style="color: var(--silver); transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--silver)'"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.008 5.925H5.051z"/></svg></a>
+              <a href="https://m.me/1474607662756877" target="_blank" aria-label="Messenger" style="color: var(--silver); transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--silver)'"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.26c0 2.9 1.4 5.485 3.585 7.152v3.315c0 .416.485.645.81.385l3.245-2.605A10.63 10.63 0 0012 20.52c5.523 0 10-4.145 10-9.26S17.523 2 12 2zm1.18 9.36l-2.485-2.65a.662.662 0 00-.98-.035l-3.32 3.55c-.24.255.105.625.405.41l2.48-1.785a.666.666 0 01.765.025l2.455 2.62c.28.295.735.31 1.035.03l3.355-3.56c.245-.26-.1-.635-.41-.415l-2.515 1.815a.67.67 0 01-.785-.005z"/></svg></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── CART ──────────────────────────────────────────── -->
+  <script src="cart.js"></script>
+
+  <!-- ─── PRODUCTS DATA + RENDER ───────────────────────── -->
+  <script src="products-data.js"></script>
+  <script>
+    (function () {
+      const catalog = window.PRODUCT_CATALOG;
+      if (!catalog) return;
+
+      const brandMap = Object.fromEntries(catalog.brands.map(b => [b.id, b]));
+
+      // Cart icon SVG
+      const cartSvg = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.053 9.728A2 2 0 0 0 10.228 16H19v-2h-8.772l-.71-1.705H19.5a2 2 0 0 0 1.904-1.386l1.42-4.5a1 1 0 0 0-1.002-1.978zM10 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>`;
+
+      function buildCard(product) {
+        const brand = brandMap[product.brand];
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.id = 'product-' + product.id;
+        card.innerHTML = `
+          <div class="product-img-area">
+            <img src="${product.imageUrl}" alt="${brand.name} ${product.name}" loading="lazy">
+            <span class="product-badge">${product.badge}</span>
+          </div>
+          <div class="product-body">
+            <span class="product-brand-tag" data-brand="${product.brand}">${brand.name}</span>
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-subtitle">${product.subtitle}</p>
+            <p class="product-description">${product.description}</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">${product.price}</span>
+            <button
+              class="btn-add-cart"
+              type="button"
+              data-name="${product.name}"
+              data-price="${product.price}"
+              data-image="${product.imageUrl}"
+              data-brand="${brand.name}"
+              id="atc-${product.id}"
+              aria-label="Add ${product.name} to cart"
+            >
+              ${cartSvg}
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        `;
+
+        // Wire up Add to Cart
+        const btn = card.querySelector('.btn-add-cart');
+        btn.addEventListener('click', function () {
+          if (typeof window.AddToCart === 'function') {
+            window.AddToCart(
+              this.dataset.name,
+              this.dataset.price,
+              this.dataset.image,
+              this.dataset.brand
+            );
+            // Brief visual feedback
+            this.classList.add('added');
+            this.querySelector('span').textContent = 'Added!';
+            const self = this;
+            setTimeout(() => {
+              self.classList.remove('added');
+              self.querySelector('span').textContent = 'Add to Cart';
+            }, 1800);
+          }
+        });
+
+        return card;
+      }
+
+      // Group products by category and render
+      const categoryGrids = {
+        cleansers: document.getElementById('grid-cleansers'),
+        serums: document.getElementById('grid-serums'),
+        moisturizers: document.getElementById('grid-moisturizers'),
+        masks: document.getElementById('grid-masks'),
+        spf: document.getElementById('grid-spf'),
+        devices: document.getElementById('grid-devices'),
+      };
+
+      catalog.products.forEach(product => {
+        const grid = categoryGrids[product.category];
+        if (grid) grid.appendChild(buildCard(product));
+      });
+
+      // Hide empty category sections
+      Object.entries(categoryGrids).forEach(([cat, grid]) => {
+        if (!grid.children.length) {
+          const section = document.getElementById(cat);
+          if (section) section.style.display = 'none';
+        }
+      });
+
+      // Add to Cart button cursor effect (after cart.js creates elements)
+      document.querySelectorAll('.btn-add-cart').forEach(function (btn) {
+        var cur = document.getElementById('cursor');
+        var lbl = document.getElementById('cursor-label');
+        btn.addEventListener('mouseenter', function () {
+          if (cur) cur.classList.add('expanded');
+          if (lbl) { lbl.classList.add('visible'); lbl.innerHTML = 'Add<br>Cart'; }
+        });
+        btn.addEventListener('mouseleave', function () {
+          if (cur) cur.classList.remove('expanded');
+          if (lbl) { lbl.classList.remove('visible'); lbl.innerHTML = 'Open<br>Link'; }
+        });
+      });
+
+      // Active category nav highlighting on scroll
+      const sections = document.querySelectorAll('.category-section');
+      const catLinks = document.querySelectorAll('.cat-nav-link');
+
+      function onScroll() {
+        let current = '';
+        const offset = 130;
+        sections.forEach(sec => {
+          if (sec.style.display === 'none') return;
+          if (window.scrollY + offset >= sec.offsetTop) {
+            current = sec.id;
+          }
+        });
+        catLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.cat === current);
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+    })();
+  </script>
+
+  <!-- ─── CURSOR ────────────────────────────────────────── -->
+  <script>
+    (function () {
+      var cur = document.getElementById('cursor');
+      var lbl = document.getElementById('cursor-label');
+      if (!cur || !lbl) return;
+
+      document.addEventListener('mousemove', function (e) {
+        cur.style.left = e.clientX + 'px';
+        cur.style.top = e.clientY + 'px';
+        lbl.style.left = e.clientX + 'px';
+        lbl.style.top = e.clientY + 'px';
+      });
+
+      document.querySelectorAll('a, button').forEach(function (el) {
+        if (el.classList.contains('btn-add-cart')) return; // handled separately
+        el.addEventListener('mouseenter', function () {
+          cur.classList.add('expanded');
+          lbl.classList.add('visible');
+        });
+        el.addEventListener('mouseleave', function () {
+          cur.classList.remove('expanded');
+          lbl.classList.remove('visible');
+        });
+      });
+    })();
+  </script>
+  <script src="cursor.js"></script>
 </body>
+
 </html>
