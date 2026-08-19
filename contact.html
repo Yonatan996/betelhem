@@ -245,12 +245,7 @@
       var lbl = document.getElementById('cursor-label');
       if (!cur) return;
 
-      document.addEventListener('mousemove', function(e) {
-        cur.style.left = e.clientX + 'px';
-        cur.style.top  = e.clientY + 'px';
-        lbl.style.left = e.clientX + 'px';
-        lbl.style.top  = e.clientY + 'px';
-      });
+
 
       // Detect dark backgrounds under cursor using element theme
       var darkSelectors = [

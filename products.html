@@ -905,13 +905,6 @@
       var lbl = document.getElementById('cursor-label');
       if (!cur || !lbl) return;
 
-      document.addEventListener('mousemove', function (e) {
-        cur.style.left = e.clientX + 'px';
-        cur.style.top = e.clientY + 'px';
-        lbl.style.left = e.clientX + 'px';
-        lbl.style.top = e.clientY + 'px';
-      });
-
       document.querySelectorAll('a, button').forEach(function (el) {
         if (el.classList.contains('btn-add-cart')) return; // handled separately
         el.addEventListener('mouseenter', function () {

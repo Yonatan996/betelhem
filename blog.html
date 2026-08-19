@@ -695,13 +695,6 @@
       var lbl = document.getElementById('cursor-label');
       if (!cur || !lbl) return;
 
-      document.addEventListener('mousemove', function(e) {
-        cur.style.left = e.clientX + 'px';
-        cur.style.top = e.clientY + 'px';
-        lbl.style.left = e.clientX + 'px';
-        lbl.style.top = e.clientY + 'px';
-      });
-
       document.addEventListener('mouseover', function(e) {
         if (e.target.closest('.journal-card, .journal-feature-card, .article-back-link, .article-prose a, button, .pill-btn, .cart-item, .cart-fab')) {
           cur.classList.add('expanded');
