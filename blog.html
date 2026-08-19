@@ -779,19 +779,19 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    (function() {
       const modal = document.getElementById('article-modal');
       const modalBody = document.getElementById('article-modal-body');
       const modalClose = document.querySelector('.article-modal-close');
       const modalBackdrop = document.querySelector('.article-modal-backdrop');
 
       document.querySelectorAll('.journal-card, .journal-feature-card').forEach(card => {
-        card.addEventListener('click', async (e) => {
+        card.addEventListener('click', async function(e) {
           e.preventDefault();
-          const url = card.getAttribute('href');
+          const url = this.getAttribute('href');
           if(!url) return;
           
-          modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: Playfair Display, serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
+          modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: \\'Playfair Display\\', serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
           modal.classList.add('active');
           document.body.style.overflow = 'hidden';
 
@@ -827,7 +827,7 @@
 
       modalClose.addEventListener('click', closeModal);
       modalBackdrop.addEventListener('click', closeModal);
-    });
+    })();
   </script>
 </body>
 </html>
