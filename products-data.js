@@ -189,3 +189,12 @@ window.PRODUCT_CATALOG = {
     }
   ]
 };
+
+(function() {
+  const localProducts = JSON.parse(localStorage.getItem('bl_site_products'));
+  if (localProducts && localProducts.products && localProducts.products.length > 0) {
+    window.PRODUCT_CATALOG = localProducts;
+  } else {
+    localStorage.setItem('bl_site_products', JSON.stringify(window.PRODUCT_CATALOG));
+  }
+})();

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Bethlehem Lebneh</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-shell { padding: 120px 2rem 80px; max-width: 1200px; margin: 0 auto; min-height: 100vh; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(54,49,46,0.1); padding-bottom: 1rem; }
+    .admin-tabs { display: flex; gap: 1rem; }
+    .tab-btn { background: none; border: 1px solid rgba(54,49,46,0.2); padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+    .tab-btn.active { background: var(--charcoal); color: #fff; }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+    .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(54,49,46,0.05); font-size: 0.9rem; }
+    .data-table th { background: #fdfcf8; font-weight: 600; }
+    .data-table img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
+    .action-btn { background: none; border: none; cursor: pointer; color: var(--stone); font-size: 0.8rem; text-decoration: underline; margin-right: 0.5rem; }
+    .action-btn:hover { color: var(--charcoal); }
+
+    .modal { position: fixed; inset: 0; background: rgba(10,10,10,0.5); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal.active { display: flex; }
+    .modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--charcoal); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid rgba(54,49,46,0.2); border-radius: 4px; font-family: inherit; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+    .btn { padding: 0.75rem 1.5rem; background: var(--charcoal); color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    .btn-outline { background: none; border: 1px solid rgba(54,49,46,0.2); color: var(--charcoal); }
+  </style>
+</head>
+<body>
+  <nav class="fixed nav-backdrop">
+    <div class="container nav-main-container" style="height: 80px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="logo-image"><img src="Logo.webp" alt="Logo" style="height: 40px;"></a>
+      <div style="font-family: 'Playfair Display', serif; font-size: 1.2rem;">Admin Dashboard</div>
+      <a href="index.html" style="font-size: 0.8rem; text-decoration: underline;">Back to Site</a>
+    </div>
+  </nav>
+
+  <main class="admin-shell">
+    <div class="admin-header">
+      <div class="admin-tabs">
+        <button class="tab-btn active" onclick="switchTab('products')">Products</button>
+        <button class="tab-btn" onclick="switchTab('blogs')">Blog Articles</button>
+      </div>
+    </div>
+
+    <!-- Products Panel -->
+    <div id="panel-products" class="admin-panel active">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Manage Products</h2>
+        <button class="btn" onclick="openProductModal()">+ Add Product</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Actions</th></tr></thead>
+        <tbody id="products-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Blogs Panel -->
+    <div id="panel-blogs" class="admin-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Manage Blog Articles</h2>
+        <button class="btn" onclick="openBlogModal()">+ Add Article</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Image</th><th>Title</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="blogs-tbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Product Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="product-modal-title">Add Product</h3>
+      <form id="product-form">
+        <input type="hidden" id="p-id">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="p-name" required>
+        </div>
+        <div class="form-group">
+          <label>Subtitle</label>
+          <input type="text" id="p-subtitle">
+        </div>
+        <div class="form-group">
+          <label>Price (e.g. $50.00)</label>
+          <input type="text" id="p-price" required>
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="url" id="p-image" required>
+        </div>
+        <div class="form-group">
+          <label>Category ID</label>
+          <select id="p-category" required>
+            <option value="cleansers">Cleansers</option>
+            <option value="serums">Serums</option>
+            <option value="moisturizers">Moisturizers</option>
+            <option value="masks">Masks</option>
+            <option value="spf">SPF</option>
+            <option value="devices">Devices</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="p-desc" required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Blog Modal -->
+  <div id="blog-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="blog-modal-title">Add Article</h3>
+      <form id="blog-form">
+        <input type="hidden" id="b-id">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="b-title" required>
+        </div>
+        <div class="form-group">
+          <label>Date (e.g. 10/12/26)</label>
+          <input type="text" id="b-date" required>
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="url" id="b-image" required>
+        </div>
+        <div class="form-group">
+          <label>Excerpt</label>
+          <textarea id="b-excerpt" required style="min-height: 60px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Full Content (HTML) - Overrides fetching from external file</label>
+          <textarea id="b-content" placeholder="<div class='article-shell'>...</div>" style="min-height: 200px;"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn">Save Article</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="products-data.js"></script>
+  <script src="blog-data.js"></script>
+  <script>
+    let productsData = { products: [] };
+    let blogsData = [];
+
+    function init() {
+      // Load Products
+      const localP = JSON.parse(localStorage.getItem('bl_site_products'));
+      if(localP) productsData = localP;
+      else if(window.PRODUCT_CATALOG) productsData = window.PRODUCT_CATALOG;
+
+      // Load Blogs
+      const localB = JSON.parse(localStorage.getItem('bl_site_blogs'));
+      if(localB) blogsData = localB;
+      else if(window.BLOG_CATALOG) blogsData = window.BLOG_CATALOG;
+
+      renderProducts();
+      renderBlogs();
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // --- Products Logic ---
+    function renderProducts() {
+      const tbody = document.getElementById('products-tbody');
+      tbody.innerHTML = '';
+      (productsData.products || []).forEach((p, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td><img src="${p.image}" alt=""></td>
+            <td>${p.name}</td>
+            <td>${p.price}</td>
+            <td>${p.category}</td>
+            <td>
+              <button class="action-btn" onclick="editProduct(${index})">Edit</button>
+              <button class="action-btn" onclick="deleteProduct(${index})" style="color:red;">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function openProductModal(index = -1) {
+      document.getElementById('product-modal').classList.add('active');
+      if(index >= 0) {
+        document.getElementById('product-modal-title').innerText = "Edit Product";
+        const p = productsData.products[index];
+        document.getElementById('p-id').value = p.id;
+        document.getElementById('p-name').value = p.name;
+        document.getElementById('p-subtitle').value = p.subtitle || '';
+        document.getElementById('p-price').value = p.price;
+        document.getElementById('p-image').value = p.image;
+        document.getElementById('p-category').value = p.category;
+        document.getElementById('p-desc').value = p.description;
+      } else {
+        document.getElementById('product-modal-title').innerText = "Add Product";
+        document.getElementById('product-form').reset();
+        document.getElementById('p-id').value = 'prod-' + Date.now();
+      }
+    }
+
+    document.getElementById('product-form').onsubmit = (e) => {
+      e.preventDefault();
+      const pId = document.getElementById('p-id').value;
+      const newP = {
+        id: pId,
+        brand: "comfort-zone", // default
+        category: document.getElementById('p-category').value,
+        name: document.getElementById('p-name').value,
+        subtitle: document.getElementById('p-subtitle').value,
+        price: document.getElementById('p-price').value,
+        image: document.getElementById('p-image').value,
+        description: document.getElementById('p-desc').value,
+        badge: ""
+      };
+
+      const existingIndex = productsData.products.findIndex(p => p.id === pId);
+      if(existingIndex >= 0) productsData.products[existingIndex] = newP;
+      else productsData.products.unshift(newP); // add to start
+
+      localStorage.setItem('bl_site_products', JSON.stringify(productsData));
+      renderProducts();
+      closeModals();
+    };
+
+    function deleteProduct(index) {
+      if(confirm("Delete this product?")) {
+        productsData.products.splice(index, 1);
+        localStorage.setItem('bl_site_products', JSON.stringify(productsData));
+        renderProducts();
+      }
+    }
+
+    // --- Blogs Logic ---
+    function renderBlogs() {
+      const tbody = document.getElementById('blogs-tbody');
+      tbody.innerHTML = '';
+      blogsData.forEach((b, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td><img src="${b.image}" alt=""></td>
+            <td>${b.title}</td>
+            <td>${b.date}</td>
+            <td>
+              <button class="action-btn" onclick="editBlog(${index})">Edit</button>
+              <button class="action-btn" onclick="deleteBlog(${index})" style="color:red;">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function openBlogModal(index = -1) {
+      document.getElementById('blog-modal').classList.add('active');
+      if(index >= 0) {
+        document.getElementById('blog-modal-title').innerText = "Edit Article";
+        const b = blogsData[index];
+        document.getElementById('b-id').value = b.id;
+        document.getElementById('b-title').value = b.title;
+        document.getElementById('b-date').value = b.date;
+        document.getElementById('b-image').value = b.image;
+        document.getElementById('b-excerpt').value = b.excerpt;
+        document.getElementById('b-content').value = b.content || '';
+      } else {
+        document.getElementById('blog-modal-title').innerText = "Add Article";
+        document.getElementById('blog-form').reset();
+        document.getElementById('b-id').value = 'article-custom-' + Date.now() + '.html';
+      }
+    }
+
+    document.getElementById('blog-form').onsubmit = (e) => {
+      e.preventDefault();
+      const bId = document.getElementById('b-id').value;
+      const newB = {
+        id: bId,
+        title: document.getElementById('b-title').value,
+        date: document.getElementById('b-date').value,
+        image: document.getElementById('b-image').value,
+        excerpt: document.getElementById('b-excerpt').value,
+        content: document.getElementById('b-content').value
+      };
+
+      const existingIndex = blogsData.findIndex(b => b.id === bId);
+      if(existingIndex >= 0) blogsData[existingIndex] = newB;
+      else blogsData.unshift(newB);
+
+      localStorage.setItem('bl_site_blogs', JSON.stringify(blogsData));
+      renderBlogs();
+      closeModals();
+    };
+
+    function deleteBlog(index) {
+      if(confirm("Delete this article?")) {
+        blogsData.splice(index, 1);
+        localStorage.setItem('bl_site_blogs', JSON.stringify(blogsData));
+        renderBlogs();
+      }
+    }
+
+    function closeModals() {
+      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
