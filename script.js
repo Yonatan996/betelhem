@@ -74,34 +74,57 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cart.length) { showToast('Your cart is empty'); return; }
     
     const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(25,30,30,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;';
     
     const modal = document.createElement('div');
-    modal.style.cssText = 'background:var(--cream);color:var(--charcoal);padding:2rem;border-radius:8px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto;';
+    modal.style.cssText = 'background:var(--cream);color:var(--charcoal);padding:2.5rem;border-radius:12px;max-width:450px;width:92%;max-height:85vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2);transform:translateY(20px);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);position:relative;';
     
-    let html = '<h2 style="margin-top:0">Your Cart</h2><div style="margin:1rem 0;border-top:1px solid #ccc;padding-top:1rem;">';
+    let html = `
+      <button id="cart-close-icon" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.8rem;cursor:pointer;color:var(--text-dark);line-height:1">&times;</button>
+      <h2 style="margin-top:0;font-family:var(--font-heading);font-style:italic;color:var(--text-dark);font-size:2rem;margin-bottom:.5rem;">Your Cart</h2>
+      <p style="margin-bottom:1.5rem;font-size:0.9rem;color:rgba(45,41,36,0.7)">Review your selections before checkout.</p>
+      <div style="border-top:1px solid rgba(45,41,36,0.1);padding-top:1.5rem;margin-bottom:1.5rem;">`;
+      
     let total = 0;
     cart.forEach(item => {
       const lineTotal = item.price * item.qty;
       total += lineTotal;
-      html += `<div style="display:flex;justify-content:space-between;margin-bottom:.5rem;">
-        <span>${item.name} (x${item.qty})</span>
-        <span>$${lineTotal.toFixed(2)}</span>
+      html += `
+      <div style="display:flex;justify-content:space-between;margin-bottom:1rem;align-items:center;">
+        <div>
+          <div style="font-weight:600;color:var(--charcoal)">${item.name}</div>
+          <div style="font-size:0.85rem;color:rgba(45,41,36,0.6)">Qty: ${item.qty}</div>
+        </div>
+        <div style="font-family:var(--font-heading);font-size:1.1rem;color:var(--text-dark)">$${lineTotal.toFixed(2)}</div>
       </div>`;
     });
-    html += `</div><div style="display:flex;justify-content:space-between;font-weight:bold;font-size:1.2rem;margin-bottom:1.5rem;">
-      <span>Total</span><span>$${total.toFixed(2)}</span>
-    </div>
-    <div style="display:flex;gap:1rem;">
-      <button id="cart-close" class="btn-pill" style="flex:1;background:transparent;border:1px solid var(--charcoal);color:var(--charcoal);padding:.7rem">Close</button>
-      <button id="cart-checkout" class="btn-solid" style="flex:1;padding:.7rem">Checkout</button>
-    </div>`;
+    
+    html += `
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;border-top:1px solid rgba(45,41,36,0.1);margin-bottom:1.5rem;">
+        <span style="font-weight:bold;text-transform:uppercase;letter-spacing:0.05em;font-size:0.9rem;">Subtotal</span>
+        <span style="font-family:var(--font-heading);font-style:italic;font-size:1.5rem;color:var(--text-dark)">$${total.toFixed(2)}</span>
+      </div>
+      <button id="cart-checkout" class="btn-solid" style="width:100%;padding:1rem;font-size:1.05rem;background:var(--charcoal);color:var(--cream);border:none;border-radius:4px;cursor:pointer;transition:background 0.3s;display:block;text-align:center;">Proceed to Checkout &rarr;</button>
+    `;
     
     modal.innerHTML = html;
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
     
-    document.getElementById('cart-close').addEventListener('click', () => overlay.remove());
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '1';
+      modal.style.transform = 'translateY(0)';
+    });
+    
+    const closeModal = () => {
+      overlay.style.opacity = '0';
+      modal.style.transform = 'translateY(20px)';
+      setTimeout(() => overlay.remove(), 300);
+    };
+    
+    document.getElementById('cart-close-icon').addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
     document.getElementById('cart-checkout').addEventListener('click', () => {
       const orders = JSON.parse(localStorage.getItem('bl_orders') || '[]');
       orders.push({
