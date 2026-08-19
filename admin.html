@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Bethlehem Lebneh</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background-color: var(--charcoal); color: var(--cream); }
+    .admin-container { max-width: 900px; margin: 8rem auto 4rem; padding: 0 1.5rem; min-height: 60vh; }
+    .order-card { background: var(--cream); color: var(--charcoal); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; margin-bottom: 1rem; align-items: center; }
+    .order-items { margin-bottom: 1rem; }
+    .order-item { display: flex; justify-content: space-between; padding: .5rem 0; font-size: .95rem; }
+    .status-badge { padding: .4rem 1rem; border-radius: 20px; font-size: .8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+    .status-pending { background: #fdf0d5; color: #a17822; border: 1px solid #f2dfa8; }
+    .status-completed { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .admin-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="nav-left">
+      <a href="index.html" class="nav-link">← Back to Site</a>
+    </div>
+    <a href="admin.html" class="nav-logo" style="font-family:var(--font-heading);font-style:italic;font-size:1.5rem;color:var(--gold);text-decoration:none">
+      Admin Dashboard
+    </a>
+    <div class="nav-right">
+      <a href="products.html" class="nav-link">Products</a>
+    </div>
+  </nav>
+
+  <main class="admin-container">
+    <h1 class="section-title">Order Management</h1>
+    <p style="margin-bottom: 3rem; color: rgba(240,235,227,0.7)">View and manage customer orders placed through the store.</p>
+    
+    <div id="orders-container">
+      <!-- Orders will be injected here via JS -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bethlehem Lebneh Skin & Wellness. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function loadOrders() {
+      const container = document.getElementById('orders-container');
+      const orders = JSON.parse(localStorage.getItem('bl_orders') || '[]');
+      
+      if (orders.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding: 3rem; border: 1px dashed rgba(240,235,227,0.3); border-radius: 8px;">No orders have been placed yet.</p>';
+        return;
+      }
+      
+      let html = '';
+      // Reverse to show newest first
+      [...orders].reverse().forEach((order, index) => {
+        const originalIndex = orders.length - 1 - index;
+        const statusClass = order.status === 'Completed' ? 'status-completed' : 'status-pending';
+        
+        let itemsHtml = '';
+        order.items.forEach(item => {
+          itemsHtml += `<div class="order-item"><span>${item.qty}x ${item.name}</span><span>$${(item.price * item.qty).toFixed(2)}</span></div>`;
+        });
+        
+        html += `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <strong>Order #${order.id.toUpperCase()}</strong><br>
+                <small style="color: #666">${order.date}</small>
+              </div>
+              <div>
+                <span class="status-badge ${statusClass}">${order.status}</span>
+              </div>
+            </div>
+            <div class="order-items">
+              ${itemsHtml}
+              <div class="order-item" style="border-top: 1px solid rgba(0,0,0,0.1); margin-top: .5rem; padding-top: .5rem; font-weight: bold;">
+                <span>Total</span><span>$${order.total.toFixed(2)}</span>
+              </div>
+            </div>
+            <div class="admin-actions">
+              ${order.status === 'Pending' ? `<button class="btn-solid" onclick="completeOrder(${originalIndex})" style="padding:.5rem 1rem;font-size:.85rem;background:var(--charcoal);color:var(--cream)">Mark Completed</button>` : ''}
+              <button class="btn-pill" onclick="deleteOrder(${originalIndex})" style="padding:.5rem 1rem;font-size:.85rem;background:transparent;border:1px solid #dc3545;color:#dc3545">Delete Order</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+
+    function completeOrder(index) {
+      const orders = JSON.parse(localStorage.getItem('bl_orders') || '[]');
+      if (orders[index]) {
+        orders[index].status = 'Completed';
+        localStorage.setItem('bl_orders', JSON.stringify(orders));
+        loadOrders();
+      }
+    }
+
+    function deleteOrder(index) {
+      if (confirm('Are you sure you want to delete this order?')) {
+        const orders = JSON.parse(localStorage.getItem('bl_orders') || '[]');
+        orders.splice(index, 1);
+        localStorage.setItem('bl_orders', JSON.stringify(orders));
+        loadOrders();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadOrders);
+  </script>
+</body>
+</html>

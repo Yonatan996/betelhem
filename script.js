@@ -72,8 +72,53 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── CART BUBBLE ──
   document.querySelector('.cart-bubble')?.addEventListener('click', () => {
     if (!cart.length) { showToast('Your cart is empty'); return; }
-    const list = cart.map(i => `${i.name} ×${i.qty} — $${(i.price * i.qty).toFixed(2)}`).join('\n');
-    alert('Cart:\n\n' + list + '\n\nTotal: $' + cart.reduce((s, i) => s + i.price * i.qty, 0).toFixed(2));
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    
+    const modal = document.createElement('div');
+    modal.style.cssText = 'background:var(--cream);color:var(--charcoal);padding:2rem;border-radius:8px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto;';
+    
+    let html = '<h2 style="margin-top:0">Your Cart</h2><div style="margin:1rem 0;border-top:1px solid #ccc;padding-top:1rem;">';
+    let total = 0;
+    cart.forEach(item => {
+      const lineTotal = item.price * item.qty;
+      total += lineTotal;
+      html += `<div style="display:flex;justify-content:space-between;margin-bottom:.5rem;">
+        <span>${item.name} (x${item.qty})</span>
+        <span>$${lineTotal.toFixed(2)}</span>
+      </div>`;
+    });
+    html += `</div><div style="display:flex;justify-content:space-between;font-weight:bold;font-size:1.2rem;margin-bottom:1.5rem;">
+      <span>Total</span><span>$${total.toFixed(2)}</span>
+    </div>
+    <div style="display:flex;gap:1rem;">
+      <button id="cart-close" class="btn-pill" style="flex:1;background:transparent;border:1px solid var(--charcoal);color:var(--charcoal);padding:.7rem">Close</button>
+      <button id="cart-checkout" class="btn-solid" style="flex:1;padding:.7rem">Checkout</button>
+    </div>`;
+    
+    modal.innerHTML = html;
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    
+    document.getElementById('cart-close').addEventListener('click', () => overlay.remove());
+    document.getElementById('cart-checkout').addEventListener('click', () => {
+      const orders = JSON.parse(localStorage.getItem('bl_orders') || '[]');
+      orders.push({
+        id: Date.now().toString(36),
+        date: new Date().toLocaleString(),
+        items: cart,
+        total: total,
+        status: 'Pending'
+      });
+      localStorage.setItem('bl_orders', JSON.stringify(orders));
+      
+      cart = [];
+      localStorage.setItem('bl_cart', JSON.stringify(cart));
+      updateCartCount();
+      overlay.remove();
+      showToast('Order placed successfully!');
+    });
   });
 
   // ── SCROLL REVEAL ──
