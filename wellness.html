@@ -225,61 +225,6 @@
         height: 240px;
       }
     }
-    
-    /* Article Modal Styles */
-    .article-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .article-modal.active {
-      display: flex;
-    }
-    .article-modal-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.5);
-      backdrop-filter: blur(8px);
-    }
-    .article-modal-content {
-      position: relative;
-      width: 90%;
-      max-width: 900px;
-      max-height: 90vh;
-      background: #fdfcf8;
-      border-radius: 12px;
-      overflow-y: auto;
-      padding: 0;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      z-index: 1001;
-      animation: modalFadeIn 0.3s ease;
-    }
-    .article-modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      font-size: 2.5rem;
-      line-height: 1;
-      color: var(--charcoal);
-      cursor: pointer;
-      z-index: 1002;
-    }
-    #article-modal-body {
-      padding: 2rem 2rem 4rem;
-    }
-    #article-modal-body .article-shell {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -402,11 +347,252 @@
       </div>
     </section>
     
-    <section class="container" id="featured-article-container">
+    <section class="container">
+      <a href="article-1.html" class="journal-feature-card">
+        <div class="journal-feature-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/69cb1c5ab6d73b153c627cf5/1774921252874/IMG_0342.jpeg?format=1500w" alt="Neuro-Maintenance: Using Your Hands to Support Focus, Movement, and Longevity" />
+        </div>
+        <div class="journal-feature-copy">
+          <p class="section-label">Featured Article</p>
+          <span class="journal-date">3/30/26</span>
+          <h2>Neuro-Maintenance: Using Your Hands to Support Focus, Movement, and Longevity</h2>
+          <p class="journal-copy">Most people try to calm their mind by &quot;thinking&quot; differently, but the real shortcut is through your fingertips. Your hands aren&#39;t just tools; they are the most hardware-dense interface your brain has with the world, occupying more &quot;neural real estate&quot; than almost any other body part.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
     </section>
   
     <section class="container">
-      <div class="journal-grid" id="journal-grid-container">
+      <div class="journal-grid">
+        
+      <a href="article-2.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/t/69af711335be43475f07dcbf/1773105427723/unsplash-image-mtOMSpOWxRI.jpg?format=1500w" alt="The Science of Longevity: How to Age with Vitality" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">3/9/26</span>
+          <h3>The Science of Longevity: How to Age with Vitality</h3>
+          <p class="journal-copy">Aging is a universal constant, but biological aging is remarkably flexible. In this exploration of longevity science, we shift the focus from chasing immortality to expanding &quot;healthspan.&quot; Discover how muscle health, mitochondrial energy, and nervous system regulation intersect to create vibrant skin, proving that true beauty is simply the visible side effect of functional health.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-3.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/690d18308ab7471495b70b3a/1762480059989/IMG_0305.jpeg?format=1500w" alt="Microneedling, Nanoneedling &amp; Microchanneling: What the Skin Truly Needs for Lasting Renewal" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">11/6/25</span>
+          <h3>Microneedling, Nanoneedling &amp; Microchanneling: What the Skin Truly Needs for Lasting Renewal</h3>
+          <p class="journal-copy">True skin renewal goes deeper than the surface. Microneedling, Nanoneedling, and Microchanneling activate the skin’s natural ability to repair, restore, and glow from within. Whether it’s a subtle boost in hydration or a full structural rebuild, these treatments work with the body’s intelligence to refine texture, smooth lines, and reveal lasting radiance—skin that feels alive, confident, and renewed.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-4.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/68e5bb517bab263b9cb2e286/1759887344065/unsplash-image-alEwyJFnleM.jpg?format=1500w" alt="Emotional Beauty: The Visible Power of Acceptance" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">10/7/25</span>
+          <h3>Emotional Beauty: The Visible Power of Acceptance</h3>
+          <p class="journal-copy">When you stop fighting and start accepting, the inner stress that fuels inflammation eases. Emotional Beauty is the steady radiance that appears when your inner weather settles. Practical rituals included.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-5.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/68db346b490b0c2907f98c17/1759274375429/unsplash-image-L6k1PKKkDRw.jpg?format=1500w" alt="The Skincare Safety Alert: Understanding the FDA Ban on OTC Hydroquinone and Mercury" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">9/30/25</span>
+          <h3>The Skincare Safety Alert: Understanding the FDA Ban on OTC Hydroquinone and Mercury</h3>
+          <p class="journal-copy">You want brighter skin, but at what cost? We break down the real dangers of hidden toxins (like mercury and banned hydroquinone) that are still circulating. Prioritize your health and learn to spot the illegal products.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-6.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/t/68d2fa9076809b67b84bd727/1758657168145/unsplash-image-PqyzuzFiQfY.jpg?format=1500w" alt="Botox &amp; Fillers: The Smarter Path to Lasting Radiance" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">9/23/25</span>
+          <h3>Botox &amp; Fillers: The Smarter Path to Lasting Radiance</h3>
+          <p class="journal-copy">Thinking about Botox or fillers? Learn the difference between injectables and non-invasive skin treatments. Discover the risks of needles and why nourishing your skin&#39;s health with custom, non-invasive treatments is the smarter choice for lasting radiance and natural-looking results.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-7.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/t/68c9ebab466b913bd11c47c4/1758063531497/IMG_0270.jpeg?format=1500w" alt="The Science-Backed Glow: Discovering Professional Gua Sha Therapy" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">9/16/25</span>
+          <h3>The Science-Backed Glow: Discovering Professional Gua Sha Therapy</h3>
+          <p class="journal-copy">Explore Gua Sha facials: the timeless Eastern practice that&#39;s revolutionizing modern skincare. This blog uncovers how precise strokes and pressure point activation restore your skin&#39;s balance, dramatically boost circulation, and deeply detoxify for unparalleled radiance. Understand the profound benefits—from sculpted contours to a renewed sense of well-being—and why a professional treatment is your key to luminous, natural beauty.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-8.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/t/678d6c5de0ce21062ddfa2bf/1737321568353/unsplash-image-CU_tgif9PTg.jpg?format=1500w" alt="The High Cost of Forced Optimism" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">1/19/25</span>
+          <h3>The High Cost of Forced Optimism</h3>
+          <p class="journal-copy">Forced optimism became a prison that masked my true self and emotions for years. It wasn&#39;t until I confronted the weight of toxic positivity, embraced vulnerability, and acknowledged my pain that I discovered the liberating power of authenticity and self-acceptance.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-9.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/65dfd7778a54a81aed851797/1712460924486/?format=1500w" alt="From Burnout to Breakthrough: Navigating the Path to Well-Being" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">3/3/24</span>
+          <h3>From Burnout to Breakthrough: Navigating the Path to Well-Being</h3>
+          <p class="journal-copy">Have you ever felt like you&#39;re constantly running on empty, with no end in sight? The demands of modern life can leave us feeling exhausted, drained, and overwhelmed. Burnout is a silent epidemic affecting millions worldwide, but it doesn&#39;t have to be this way. By prioritizing prevention and taking proactive steps to maintain well-being, we can navigate the path to a healthier, more balanced life. From recognizing the signs of burnout to implementing self-care practices and seeking support, there&#39;s hope for reclaiming your vitality and finding fulfillment once again. Join me on this journey from burnout to breakthrough, where we&#39;ll explore practical strategies for preventing burnout and building resilience in our daily lives.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-10.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/65d563b674adb12eedd14645/1712266492998/?format=1500w" alt="Proper Posture for a Healthier You" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">2/20/24</span>
+          <h3>Proper Posture for a Healthier You</h3>
+          <p class="journal-copy">To comprehend the importance of posture, we first need to understand what neutral posture entails. Neutral posture is the position that allows us to maintain equilibrium while using the least amount of effort and energy. It involves aligning the vertebrae from the neck to the tailbone with respect to the center of gravity. This alignment is critical for a healthy, upright human posture.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-11.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/65a1fc608ed92652df9210b6/1712266492980/?format=1500w" alt="The Power of Meta-Cognition and Yoga in Trauma Recovery" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">1/12/24</span>
+          <h3>The Power of Meta-Cognition and Yoga in Trauma Recovery</h3>
+          <p class="journal-copy">Self-awareness and understanding. It allows us to unravel the intricate threads of our thoughts, emotions, and cognitive abilities. By cultivating this higher-order thinking, we gain the tools to monitor and regulate our mental processes, fostering improved learning, problem-solving, and decision-making skills.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-12.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/656ba3f9dc281c4b5339f42a/1712266485701/IMG_1285.jpeg?format=1500w" alt="Unveiling the Secrets of Youthful Skin: Unraveling the Interplay of Lifestyle and Aging" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">1/12/24</span>
+          <h3>Unveiling the Secrets of Youthful Skin: Unraveling the Interplay of Lifestyle and Aging</h3>
+          <p class="journal-copy">Our skin is not merely a protective barrier; it&#39;s a living canvas that reflects the tapestry of our daily lives. What we consume, how we navigate stress, and the actions we take collectively weave our &quot;lifestyle,&quot; leaving an indelible mark on our skin. Understanding the four primary processes linked to our lifestyle can be pivotal in either accelerating or slowing down the aging journey.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-13.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/656ba1f6161d1d5ee77c0365/1712266492793/?format=1500w" alt="The Tiny Titans of Your Brain: Unveiling the Pineal and Pituitary Glands" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">1/12/24</span>
+          <h3>The Tiny Titans of Your Brain: Unveiling the Pineal and Pituitary Glands</h3>
+          <p class="journal-copy">The pineal gland, shaped like a pinecone, sits right in the center of your brain, a location that has long fueled its mystique. Ancient civilizations revered it as a gateway to the divine, a connection to a higher realm of consciousness.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-14.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/6536d16efe073f1b4bbf23e2/1712266494937/?format=1500w" alt="The Chemistry of Choice" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">10/23/23</span>
+          <h3>The Chemistry of Choice</h3>
+          <p class="journal-copy">Our choices directly affect our body&#39;s chemical composition. Emotions are intricately linked to these chemical reactions. Positive choices can lead to the release of endorphins, dopamine, and serotonin—neurotransmitters associated with pleasure and well-being.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-15.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/652d8c6a2e3a8c6e7a532816/1712266484472/?format=1500w" alt="Harnessing the Power of Emotional Energy for Personal Growth" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">10/16/23</span>
+          <h3>Harnessing the Power of Emotional Energy for Personal Growth</h3>
+          <p class="journal-copy">Emotions are not mere random feelings; they are expressions of our innermost needs and desires. Each emotion has its unique dimension, revealing aspects of our inner world that require attention. By acknowledging and understanding these dimensions, we can navigate our emotional landscape more effectively.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-16.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/6524845deec74960efb4dfea/1712266490981/?format=1500w" alt="Antioxidants and Peptides: The Power Duo for Radiant, Youthful Skin" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">10/10/23</span>
+          <h3>Antioxidants and Peptides: The Power Duo for Radiant, Youthful Skin</h3>
+          <p class="journal-copy">Achieving radiant and youthful skin is a universal desire, and science has unveiled two key players in the skincare world: antioxidants and peptides. These powerful ingredients work together to neutralize free radicals, promote collagen production, and repair the skin&#39;s natural barrier.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-17.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/651c5d4dfe67401d679b5e60/1712266484502/?format=1500w" alt="The Way of Yoga" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">10/3/23</span>
+          <h3>The Way of Yoga</h3>
+          <p class="journal-copy">A seeker just cannot hammer down the door to higher consciousness. This does not seem to be the nature of the game although many try. Such attempts to wrest nature&#39;s secrets or rend the veil have parallels in the foundations of Western science but prove both absurd and pointless in the realm of inner space.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-18.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/64d1753f5e0ebc045eada4ee/1712266489972/?format=1500w" alt="Unplugging the Energy Vampires: How Yoga Can Empower You" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">8/7/23</span>
+          <h3>Unplugging the Energy Vampires: How Yoga Can Empower You</h3>
+          <p class="journal-copy">On the emotional front, psychic vampires are individuals who unconsciously or intentionally drain our emotional and psychological energy. These people can leave us feeling emotionally drained, fatigued, and negative after interactions with them.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-19.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/64ca7121f3a440492667d801/1712266489487/?format=1500w" alt="The Power of Neuroplasticity in Shaping Our Brains" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">8/2/23</span>
+          <h3>The Power of Neuroplasticity in Shaping Our Brains</h3>
+          <p class="journal-copy">A Path to Healing from Depression. For those struggling with depression, neuroplasticity offers a glimmer of hope. By quieting circuits that once crackled with aberrant activity, individuals can find relief from the shadows of depression. The brain&#39;s adaptive nature opens doors to new treatments and therapeutic approaches for mental health challenges.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
+      <a href="article-20.html" class="journal-card">
+        <div class="journal-card-image">
+          <img src="https://static1.squarespace.com/static/5d8d659dd33e177e2f89ba60/640e3cdd13b627123d8062f2/64bff93413b3d34d04bc2a92/1712266489868/?format=1500w" alt="Exploring Top-Down and Bottom-up Approaches to Trauma Therapy" />
+        </div>
+        <div class="journal-card-copy">
+          <span class="journal-date">7/25/23</span>
+          <h3>Exploring Top-Down and Bottom-up Approaches to Trauma Therapy</h3>
+          <p class="journal-copy">The power of yoga lies not just in the physical postures but in its ability to facilitate profound healing on all levels of our being. My journey of self-discovery through yoga has led me to embrace my traumas as teachers, and I now walk a path of empowerment and authenticity.</p>
+          <span class="journal-read">Read More</span>
+        </div>
+      </a>
+    
       </div>
     </section>
   </main>
@@ -525,121 +711,5 @@
     })();
   </script>
   <script src="cursor.js"></script>
-
-  <!-- Article Modal -->
-  <div id="article-modal" class="article-modal">
-    <div class="article-modal-backdrop"></div>
-    <div class="article-modal-content">
-      <button class="article-modal-close" aria-label="Close article">&times;</button>
-      <div id="article-modal-body">
-        <!-- Content gets injected here -->
-      </div>
-    </div>
-  </div>
-
-  <script src="blog-data.js"></script>
-  <script>
-    (function() {
-      const modal = document.getElementById('article-modal');
-      const modalBody = document.getElementById('article-modal-body');
-      const modalClose = document.querySelector('.article-modal-close');
-      const modalBackdrop = document.querySelector('.article-modal-backdrop');
-
-      // Initialize from localStorage or default
-      let blogCatalog = JSON.parse(localStorage.getItem('bl_site_blogs'));
-      if (!blogCatalog || blogCatalog.length === 0) {
-        blogCatalog = window.BLOG_CATALOG || [];
-        localStorage.setItem('bl_site_blogs', JSON.stringify(blogCatalog));
-      }
-      
-      const featureContainer = document.getElementById('featured-article-container');
-      const gridContainer = document.getElementById('journal-grid-container');
-
-      if (blogCatalog.length > 0) {
-        // Render Feature Article (first one)
-        const feature = blogCatalog[0];
-        featureContainer.innerHTML = `
-          <a href="#" class="journal-feature-card" data-id="${feature.id}">
-            <div class="journal-feature-image">
-              <img src="${feature.image}" alt="${feature.title}" />
-            </div>
-            <div class="journal-feature-copy">
-              <p class="section-label">Featured Article</p>
-              <span class="journal-date">${feature.date}</span>
-              <h2>${feature.title}</h2>
-              <p class="journal-copy">${feature.excerpt}</p>
-              <span class="journal-read">Read More</span>
-            </div>
-          </a>
-        `;
-
-        // Render rest of articles
-        const rest = blogCatalog.slice(1);
-        gridContainer.innerHTML = rest.map(blog => `
-          <a href="#" class="journal-card" data-id="${blog.id}">
-            <div class="journal-card-image">
-              <img src="${blog.image}" alt="${blog.title}" />
-            </div>
-            <div class="journal-card-copy">
-              <span class="journal-date">${blog.date}</span>
-              <h3>${blog.title}</h3>
-              <p class="journal-copy">${blog.excerpt}</p>
-              <span class="journal-read">Read More</span>
-            </div>
-          </a>
-        `).join('');
-      }
-
-      // Attach click events
-      document.querySelectorAll('.journal-card, .journal-feature-card').forEach(card => {
-        card.addEventListener('click', async function(e) {
-          e.preventDefault();
-          const blogId = this.getAttribute('data-id');
-          if(!blogId) return;
-          
-          const blog = blogCatalog.find(b => b.id === blogId);
-          if(!blog) return;
-
-          modal.classList.add('active');
-          document.body.style.overflow = 'hidden';
-          
-          // Display the content stored in localstorage, or fallback to fetching if content is empty string
-          if (blog.content && blog.content.trim() !== '') {
-            modalBody.innerHTML = blog.content;
-          } else {
-            // Fallback for hardcoded articles that haven't been edited
-            modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: \\'Playfair Display\\', serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
-            try {
-              const res = await fetch(blog.id);
-              const text = await res.text();
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(text, 'text/html');
-              const articleContent = doc.querySelector('.article-shell');
-              
-              if(articleContent) {
-                const backLink = articleContent.querySelector('.article-back-link');
-                if(backLink) backLink.remove();
-                const moreSection = articleContent.querySelector('.article-more');
-                if(moreSection) moreSection.remove();
-                modalBody.innerHTML = articleContent.innerHTML;
-              } else {
-                modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Article content not found.</div>';
-              }
-            } catch(err) {
-              modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Error loading article. Try viewing the site on a live server.</div>';
-            }
-          }
-        });
-      });
-
-      function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      modalClose.addEventListener('click', closeModal);
-      modalBackdrop.addEventListener('click', closeModal);
-    })();
-  </script>
 </body>
 </html>

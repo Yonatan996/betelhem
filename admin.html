@@ -30,8 +30,13 @@
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid rgba(54,49,46,0.2); border-radius: 4px; font-family: inherit; }
     .form-group textarea { resize: vertical; min-height: 100px; }
     .form-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
-    .btn { padding: 0.75rem 1.5rem; background: var(--charcoal); color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    .btn { padding: 0.75rem 1.5rem; background: var(--charcoal); color: #fff; border: none; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn:disabled { opacity: 0.7; cursor: not-allowed; }
     .btn-outline { background: none; border: 1px solid rgba(54,49,46,0.2); color: var(--charcoal); }
+    
+    .status-msg { margin-top: 1rem; padding: 1rem; border-radius: 4px; font-size: 0.9rem; display: none; }
+    .status-msg.success { background: #e6f4ea; color: #1e8e3e; display: block; }
+    .status-msg.error { background: #fce8e6; color: #d93025; display: block; }
   </style>
 </head>
 <body>
@@ -48,7 +53,9 @@
       <div class="admin-tabs">
         <button class="tab-btn active" onclick="switchTab('products')">Products</button>
         <button class="tab-btn" onclick="switchTab('blogs')">Blog Articles</button>
+        <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
       </div>
+      <div id="sync-status" style="font-size: 0.8rem; color: var(--stone);">Loading data from GitHub...</div>
     </div>
 
     <!-- Products Panel -->
@@ -73,6 +80,25 @@
         <thead><tr><th>Image</th><th>Title</th><th>Date</th><th>Actions</th></tr></thead>
         <tbody id="blogs-tbody"></tbody>
       </table>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="panel-settings" class="admin-panel">
+      <h2>GitHub Connection</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 2rem; color: var(--stone);">To push changes to your live storage repository, you must provide a GitHub Personal Access Token with repo access.</p>
+      
+      <form id="settings-form">
+        <div class="form-group" style="max-width: 500px;">
+          <label>GitHub Username / Repository Name</label>
+          <input type="text" id="github-repo" placeholder="Yonatan996/betelhem-storage" value="Yonatan996/betelhem-storage" required>
+        </div>
+        <div class="form-group" style="max-width: 500px;">
+          <label>GitHub Personal Access Token (Classic)</label>
+          <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxx" required>
+        </div>
+        <button type="submit" class="btn">Save Token Locally</button>
+        <div id="settings-msg" class="status-msg"></div>
+      </form>
     </div>
   </main>
 
@@ -115,7 +141,7 @@
         </div>
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="closeModals()">Cancel</button>
-          <button type="submit" class="btn">Save Product</button>
+          <button type="submit" class="btn" id="p-submit">Save & Push</button>
         </div>
       </form>
     </div>
@@ -144,33 +170,70 @@
           <textarea id="b-excerpt" required style="min-height: 60px;"></textarea>
         </div>
         <div class="form-group">
-          <label>Full Content (HTML) - Overrides fetching from external file</label>
-          <textarea id="b-content" placeholder="<div class='article-shell'>...</div>" style="min-height: 200px;"></textarea>
+          <label>Full Content (HTML)</label>
+          <textarea id="b-content" placeholder="<p>Write your article here...</p>" style="min-height: 200px;"></textarea>
         </div>
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="closeModals()">Cancel</button>
-          <button type="submit" class="btn">Save Article</button>
+          <button type="submit" class="btn" id="b-submit">Save & Push</button>
         </div>
       </form>
     </div>
   </div>
 
-  <script src="products-data.js"></script>
-  <script src="blog-data.js"></script>
   <script>
     let productsData = { products: [] };
     let blogsData = [];
+    
+    // Fallback static data if GitHub fails
+    let fallbackProducts = { "brands": [], "categories": [], "products": [] };
+    let fallbackBlogs = [];
 
-    function init() {
-      // Load Products
-      const localP = JSON.parse(localStorage.getItem('bl_site_products'));
-      if(localP) productsData = localP;
-      else if(window.PRODUCT_CATALOG) productsData = window.PRODUCT_CATALOG;
+    // Helper: b64 encode with unicode support
+    function utf8_to_b64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
 
-      // Load Blogs
-      const localB = JSON.parse(localStorage.getItem('bl_site_blogs'));
-      if(localB) blogsData = localB;
-      else if(window.BLOG_CATALOG) blogsData = window.BLOG_CATALOG;
+    async function init() {
+      const token = localStorage.getItem('bl_github_token');
+      const repo = localStorage.getItem('bl_github_repo') || 'Yonatan996/betelhem-storage';
+      
+      document.getElementById('github-token').value = token || '';
+      document.getElementById('github-repo').value = repo;
+
+      document.getElementById('sync-status').innerText = "Fetching data from GitHub...";
+      
+      try {
+        // Fetch fresh data from storage repo using API to avoid cache
+        const headers = token ? { 'Authorization': 'token ' + token } : {};
+        
+        // Products
+        const pRes = await fetch(`https://api.github.com/repos/${repo}/contents/data/products.json?t=${Date.now()}`, { headers });
+        if(pRes.ok) {
+          const pData = await pRes.json();
+          productsData = JSON.parse(decodeURIComponent(escape(atob(pData.content))));
+        } else {
+          // Fallback to raw if API rate limited and no token
+          const pr = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/products.json?t=${Date.now()}`);
+          if(pr.ok) productsData = await pr.json();
+        }
+
+        // Blogs
+        const bRes = await fetch(`https://api.github.com/repos/${repo}/contents/data/blogs.json?t=${Date.now()}`, { headers });
+        if(bRes.ok) {
+          const bData = await bRes.json();
+          blogsData = JSON.parse(decodeURIComponent(escape(atob(bData.content))));
+        } else {
+          const br = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/blogs.json?t=${Date.now()}`);
+          if(br.ok) blogsData = await br.json();
+        }
+
+        document.getElementById('sync-status').innerText = "✅ Synchronized with GitHub";
+        document.getElementById('sync-status').style.color = "#1e8e3e";
+      } catch(err) {
+        document.getElementById('sync-status').innerText = "⚠️ Offline or failed to sync.";
+        document.getElementById('sync-status').style.color = "#d93025";
+      }
 
       renderProducts();
       renderBlogs();
@@ -181,6 +244,59 @@
       document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
       event.target.classList.add('active');
       document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // --- GitHub Push Logic ---
+    async function pushToGitHub(path, jsonData, btnElement) {
+      const token = localStorage.getItem('bl_github_token');
+      const repo = localStorage.getItem('bl_github_repo');
+      
+      if(!token) {
+        alert("Please go to Settings and enter your GitHub Token first.");
+        return false;
+      }
+
+      const originalText = btnElement.innerText;
+      btnElement.innerText = "Pushing...";
+      btnElement.disabled = true;
+
+      try {
+        // 1. Get file SHA
+        const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          headers: { 'Authorization': 'token ' + token }
+        });
+        const getJson = await getRes.json();
+        const sha = getJson.sha;
+
+        // 2. Put new file content
+        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'token ' + token,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Admin update to ${path}`,
+            content: utf8_to_b64(JSON.stringify(jsonData, null, 2)),
+            sha: sha
+          })
+        });
+
+        if(putRes.ok) {
+          alert("Successfully pushed to GitHub Storage Repo!");
+          return true;
+        } else {
+          const err = await putRes.json();
+          alert("Failed to push: " + err.message);
+          return false;
+        }
+      } catch(e) {
+        alert("Error connecting to GitHub API.");
+        return false;
+      } finally {
+        btnElement.innerText = originalText;
+        btnElement.disabled = false;
+      }
     }
 
     // --- Products Logic ---
@@ -222,12 +338,12 @@
       }
     }
 
-    document.getElementById('product-form').onsubmit = (e) => {
+    document.getElementById('product-form').onsubmit = async (e) => {
       e.preventDefault();
       const pId = document.getElementById('p-id').value;
       const newP = {
         id: pId,
-        brand: "comfort-zone", // default
+        brand: "comfort-zone",
         category: document.getElementById('p-category').value,
         name: document.getElementById('p-name').value,
         subtitle: document.getElementById('p-subtitle').value,
@@ -239,18 +355,22 @@
 
       const existingIndex = productsData.products.findIndex(p => p.id === pId);
       if(existingIndex >= 0) productsData.products[existingIndex] = newP;
-      else productsData.products.unshift(newP); // add to start
+      else productsData.products.unshift(newP); 
 
-      localStorage.setItem('bl_site_products', JSON.stringify(productsData));
-      renderProducts();
-      closeModals();
+      // Push to github
+      const success = await pushToGitHub('data/products.json', productsData, document.getElementById('p-submit'));
+      if(success) {
+        renderProducts();
+        closeModals();
+      }
     };
 
-    function deleteProduct(index) {
-      if(confirm("Delete this product?")) {
-        productsData.products.splice(index, 1);
-        localStorage.setItem('bl_site_products', JSON.stringify(productsData));
-        renderProducts();
+    async function deleteProduct(index) {
+      if(confirm("Delete this product? It will be removed from GitHub.")) {
+        const deleted = productsData.products.splice(index, 1);
+        const success = await pushToGitHub('data/products.json', productsData, event.target);
+        if(success) renderProducts();
+        else productsData.products.splice(index, 0, deleted[0]); // revert if failed
       }
     }
 
@@ -291,7 +411,7 @@
       }
     }
 
-    document.getElementById('blog-form').onsubmit = (e) => {
+    document.getElementById('blog-form').onsubmit = async (e) => {
       e.preventDefault();
       const bId = document.getElementById('b-id').value;
       const newB = {
@@ -307,18 +427,37 @@
       if(existingIndex >= 0) blogsData[existingIndex] = newB;
       else blogsData.unshift(newB);
 
-      localStorage.setItem('bl_site_blogs', JSON.stringify(blogsData));
-      renderBlogs();
-      closeModals();
+      const success = await pushToGitHub('data/blogs.json', blogsData, document.getElementById('b-submit'));
+      if(success) {
+        renderBlogs();
+        closeModals();
+      }
     };
 
-    function deleteBlog(index) {
-      if(confirm("Delete this article?")) {
-        blogsData.splice(index, 1);
-        localStorage.setItem('bl_site_blogs', JSON.stringify(blogsData));
-        renderBlogs();
+    async function deleteBlog(index) {
+      if(confirm("Delete this article? It will be removed from GitHub.")) {
+        const deleted = blogsData.splice(index, 1);
+        const success = await pushToGitHub('data/blogs.json', blogsData, event.target);
+        if(success) renderBlogs();
+        else blogsData.splice(index, 0, deleted[0]);
       }
     }
+
+    // --- Settings Logic ---
+    document.getElementById('settings-form').onsubmit = (e) => {
+      e.preventDefault();
+      const token = document.getElementById('github-token').value.trim();
+      const repo = document.getElementById('github-repo').value.trim();
+      
+      localStorage.setItem('bl_github_token', token);
+      localStorage.setItem('bl_github_repo', repo);
+      
+      const msg = document.getElementById('settings-msg');
+      msg.className = "status-msg success";
+      msg.innerText = "Token saved locally! You can now push data to your storage repo.";
+      
+      init(); // Reload data with token
+    };
 
     function closeModals() {
       document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));

@@ -768,10 +768,15 @@
   <script src="cart.js"></script>
 
   <!-- ─── PRODUCTS DATA + RENDER ───────────────────────── -->
-  <script src="products-data.js"></script>
   <script>
-    (function () {
-      const catalog = window.PRODUCT_CATALOG;
+    (async function () {
+      let catalog = null;
+      try {
+        const res = await fetch("https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/products.json");
+        catalog = await res.json();
+      } catch(e) {
+        console.error("Failed to load products", e);
+      }
       if (!catalog) return;
 
       const brandMap = Object.fromEntries(catalog.brands.map(b => [b.id, b]));

@@ -537,20 +537,22 @@
     </div>
   </div>
 
-  <script src="blog-data.js"></script>
   <script>
-    (function() {
+    (async function() {
       const modal = document.getElementById('article-modal');
       const modalBody = document.getElementById('article-modal-body');
       const modalClose = document.querySelector('.article-modal-close');
       const modalBackdrop = document.querySelector('.article-modal-backdrop');
 
-      // Initialize from localStorage or default
-      let blogCatalog = JSON.parse(localStorage.getItem('bl_site_blogs'));
-      if (!blogCatalog || blogCatalog.length === 0) {
-        blogCatalog = window.BLOG_CATALOG || [];
-        localStorage.setItem('bl_site_blogs', JSON.stringify(blogCatalog));
+      // Fetch from GitHub
+      let blogCatalog = [];
+      try {
+        const res = await fetch("https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/blogs.json");
+        blogCatalog = await res.json();
+      } catch(e) {
+        console.error("Failed to load blogs", e);
       }
+      if (!blogCatalog || blogCatalog.length === 0) return;
       
       const featureContainer = document.getElementById('featured-article-container');
       const gridContainer = document.getElementById('journal-grid-container');
