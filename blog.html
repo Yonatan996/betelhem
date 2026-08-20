@@ -538,16 +538,18 @@
   </div>
 
   <script>
+    const PROXY_URL = "https://your-worker.your-name.workers.dev"; // ⚠️ REPLACE WITH YOUR WORKER URL
+
     (async function() {
       const modal = document.getElementById('article-modal');
       const modalBody = document.getElementById('article-modal-body');
       const modalClose = document.querySelector('.article-modal-close');
       const modalBackdrop = document.querySelector('.article-modal-backdrop');
 
-      // Fetch from GitHub
+      // Fetch from Proxy
       let blogCatalog = [];
       try {
-        const res = await fetch("https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/blogs.json");
+        const res = await fetch(`${PROXY_URL}/data/blogs.json`);
         blogCatalog = await res.json();
       } catch(e) {
         console.error("Failed to load blogs", e);

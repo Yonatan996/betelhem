@@ -55,7 +55,7 @@
         <button class="tab-btn" onclick="switchTab('blogs')">Blog Articles</button>
         <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
       </div>
-      <div id="sync-status" style="font-size: 0.8rem; color: var(--stone);">Loading data from GitHub...</div>
+      <div id="sync-status" style="font-size: 0.8rem; color: var(--stone);">Loading data...</div>
     </div>
 
     <!-- Products Panel -->
@@ -84,19 +84,19 @@
 
     <!-- Settings Panel -->
     <div id="panel-settings" class="admin-panel">
-      <h2>GitHub Connection</h2>
-      <p style="font-size: 0.9rem; margin-bottom: 2rem; color: var(--stone);">To push changes to your live storage repository, you must provide a GitHub Personal Access Token with repo access.</p>
+      <h2>Database Connection</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 2rem; color: var(--stone);">Connect to your Cloudflare Worker Proxy to securely manage your private database.</p>
       
       <form id="settings-form">
         <div class="form-group" style="max-width: 500px;">
-          <label>GitHub Username / Repository Name</label>
-          <input type="text" id="github-repo" placeholder="Yonatan996/betelhem-storage" value="Yonatan996/betelhem-storage" required>
+          <label>Cloudflare Worker URL</label>
+          <input type="url" id="proxy-url" placeholder="https://your-worker.your-name.workers.dev" required>
         </div>
         <div class="form-group" style="max-width: 500px;">
-          <label>GitHub Personal Access Token (Classic)</label>
-          <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxx" required>
+          <label>Admin Password</label>
+          <input type="password" id="proxy-pass" placeholder="Enter your custom admin password" required>
         </div>
-        <button type="submit" class="btn">Save Token Locally</button>
+        <button type="submit" class="btn">Save Settings</button>
         <div id="settings-msg" class="status-msg"></div>
       </form>
     </div>
@@ -184,10 +184,6 @@
   <script>
     let productsData = { products: [] };
     let blogsData = [];
-    
-    // Fallback static data if GitHub fails
-    let fallbackProducts = { "brands": [], "categories": [], "products": [] };
-    let fallbackBlogs = [];
 
     // Helper: b64 encode with unicode support
     function utf8_to_b64(str) {
@@ -195,43 +191,31 @@
     }
 
     async function init() {
-      const token = localStorage.getItem('bl_github_token');
-      const repo = localStorage.getItem('bl_github_repo') || 'Yonatan996/betelhem-storage';
+      const proxyUrl = localStorage.getItem('bl_proxy_url') || '';
+      const proxyPass = localStorage.getItem('bl_proxy_pass') || '';
       
-      document.getElementById('github-token').value = token || '';
-      document.getElementById('github-repo').value = repo;
+      document.getElementById('proxy-url').value = proxyUrl;
+      document.getElementById('proxy-pass').value = proxyPass;
 
-      document.getElementById('sync-status').innerText = "Fetching data from GitHub...";
+      if (!proxyUrl) {
+        document.getElementById('sync-status').innerText = "Please configure your Worker URL in Settings.";
+        return;
+      }
+      
+      document.getElementById('sync-status').innerText = "Fetching data...";
       
       try {
-        // Fetch fresh data from storage repo using API to avoid cache
-        const headers = token ? { 'Authorization': 'token ' + token } : {};
-        
-        // Products
-        const pRes = await fetch(`https://api.github.com/repos/${repo}/contents/data/products.json?t=${Date.now()}`, { headers });
-        if(pRes.ok) {
-          const pData = await pRes.json();
-          productsData = JSON.parse(decodeURIComponent(escape(atob(pData.content))));
-        } else {
-          // Fallback to raw if API rate limited and no token
-          const pr = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/products.json?t=${Date.now()}`);
-          if(pr.ok) productsData = await pr.json();
-        }
+        // Fetch from Proxy
+        const pRes = await fetch(`${proxyUrl}/data/products.json`);
+        if(pRes.ok) productsData = await pRes.json();
 
-        // Blogs
-        const bRes = await fetch(`https://api.github.com/repos/${repo}/contents/data/blogs.json?t=${Date.now()}`, { headers });
-        if(bRes.ok) {
-          const bData = await bRes.json();
-          blogsData = JSON.parse(decodeURIComponent(escape(atob(bData.content))));
-        } else {
-          const br = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/blogs.json?t=${Date.now()}`);
-          if(br.ok) blogsData = await br.json();
-        }
+        const bRes = await fetch(`${proxyUrl}/data/blogs.json`);
+        if(bRes.ok) blogsData = await bRes.json();
 
-        document.getElementById('sync-status').innerText = "✅ Synchronized with GitHub";
+        document.getElementById('sync-status').innerText = "✅ Synchronized with Proxy";
         document.getElementById('sync-status').style.color = "#1e8e3e";
       } catch(err) {
-        document.getElementById('sync-status').innerText = "⚠️ Offline or failed to sync.";
+        document.getElementById('sync-status').innerText = "⚠️ Failed to sync. Check URL.";
         document.getElementById('sync-status').style.color = "#d93025";
       }
 
@@ -246,13 +230,13 @@
       document.getElementById('panel-' + tab).classList.add('active');
     }
 
-    // --- GitHub Push Logic ---
-    async function pushToGitHub(path, jsonData, btnElement) {
-      const token = localStorage.getItem('bl_github_token');
-      const repo = localStorage.getItem('bl_github_repo');
+    // --- Proxy Push Logic ---
+    async function pushToProxy(path, jsonData, btnElement) {
+      const proxyUrl = localStorage.getItem('bl_proxy_url');
+      const proxyPass = localStorage.getItem('bl_proxy_pass');
       
-      if(!token) {
-        alert("Please go to Settings and enter your GitHub Token first.");
+      if(!proxyUrl || !proxyPass) {
+        alert("Please go to Settings and configure the proxy connection.");
         return false;
       }
 
@@ -261,37 +245,27 @@
       btnElement.disabled = true;
 
       try {
-        // 1. Get file SHA
-        const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-          headers: { 'Authorization': 'token ' + token }
-        });
-        const getJson = await getRes.json();
-        const sha = getJson.sha;
-
-        // 2. Put new file content
-        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+        const putRes = await fetch(`${proxyUrl}/${path}`, {
           method: 'PUT',
           headers: {
-            'Authorization': 'token ' + token,
+            'Authorization': 'Bearer ' + proxyPass,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            message: `Admin update to ${path}`,
-            content: utf8_to_b64(JSON.stringify(jsonData, null, 2)),
-            sha: sha
+            content: utf8_to_b64(JSON.stringify(jsonData, null, 2))
           })
         });
 
         if(putRes.ok) {
-          alert("Successfully pushed to GitHub Storage Repo!");
+          alert("Successfully saved to database!");
           return true;
         } else {
-          const err = await putRes.json();
-          alert("Failed to push: " + err.message);
+          const err = await putRes.text();
+          alert("Failed to push: " + err);
           return false;
         }
       } catch(e) {
-        alert("Error connecting to GitHub API.");
+        alert("Error connecting to Proxy.");
         return false;
       } finally {
         btnElement.innerText = originalText;
@@ -357,8 +331,7 @@
       if(existingIndex >= 0) productsData.products[existingIndex] = newP;
       else productsData.products.unshift(newP); 
 
-      // Push to github
-      const success = await pushToGitHub('data/products.json', productsData, document.getElementById('p-submit'));
+      const success = await pushToProxy('data/products.json', productsData, document.getElementById('p-submit'));
       if(success) {
         renderProducts();
         closeModals();
@@ -366,9 +339,9 @@
     };
 
     async function deleteProduct(index) {
-      if(confirm("Delete this product? It will be removed from GitHub.")) {
+      if(confirm("Delete this product?")) {
         const deleted = productsData.products.splice(index, 1);
-        const success = await pushToGitHub('data/products.json', productsData, event.target);
+        const success = await pushToProxy('data/products.json', productsData, event.target);
         if(success) renderProducts();
         else productsData.products.splice(index, 0, deleted[0]); // revert if failed
       }
@@ -427,7 +400,7 @@
       if(existingIndex >= 0) blogsData[existingIndex] = newB;
       else blogsData.unshift(newB);
 
-      const success = await pushToGitHub('data/blogs.json', blogsData, document.getElementById('b-submit'));
+      const success = await pushToProxy('data/blogs.json', blogsData, document.getElementById('b-submit'));
       if(success) {
         renderBlogs();
         closeModals();
@@ -435,9 +408,9 @@
     };
 
     async function deleteBlog(index) {
-      if(confirm("Delete this article? It will be removed from GitHub.")) {
+      if(confirm("Delete this article?")) {
         const deleted = blogsData.splice(index, 1);
-        const success = await pushToGitHub('data/blogs.json', blogsData, event.target);
+        const success = await pushToProxy('data/blogs.json', blogsData, event.target);
         if(success) renderBlogs();
         else blogsData.splice(index, 0, deleted[0]);
       }
@@ -446,17 +419,20 @@
     // --- Settings Logic ---
     document.getElementById('settings-form').onsubmit = (e) => {
       e.preventDefault();
-      const token = document.getElementById('github-token').value.trim();
-      const repo = document.getElementById('github-repo').value.trim();
+      // ensure URL doesn't have trailing slash
+      let url = document.getElementById('proxy-url').value.trim();
+      if(url.endsWith('/')) url = url.slice(0, -1);
       
-      localStorage.setItem('bl_github_token', token);
-      localStorage.setItem('bl_github_repo', repo);
+      const pass = document.getElementById('proxy-pass').value.trim();
+      
+      localStorage.setItem('bl_proxy_url', url);
+      localStorage.setItem('bl_proxy_pass', pass);
       
       const msg = document.getElementById('settings-msg');
       msg.className = "status-msg success";
-      msg.innerText = "Token saved locally! You can now push data to your storage repo.";
+      msg.innerText = "Settings saved! Testing connection...";
       
-      init(); // Reload data with token
+      init(); 
     };
 
     function closeModals() {

@@ -769,10 +769,12 @@
 
   <!-- ─── PRODUCTS DATA + RENDER ───────────────────────── -->
   <script>
+    const PROXY_URL = "https://your-worker.your-name.workers.dev"; // ⚠️ REPLACE WITH YOUR WORKER URL
+
     (async function () {
       let catalog = null;
       try {
-        const res = await fetch("https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/products.json");
+        const res = await fetch(`${PROXY_URL}/data/products.json`);
         catalog = await res.json();
       } catch(e) {
         console.error("Failed to load products", e);
