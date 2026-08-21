@@ -24,8 +24,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   line-height: 1.5;
-  cursor: none;
 }
+
+/* Disable Custom Cursor Globally */
+#cursor, #cursor-label { display: none !important; }
 
 /* ─── Global Custom Cursor ─────────────────────────────────────────────── */
 #cursor {
@@ -77,11 +79,11 @@ body {
 #cursor-label.visible { opacity: 1; }
 #cursor-label.on-dark { color: var(--alabaster); }
 
-/* hide default cursor everywhere */
+/* Custom cursor is disabled. Keep default cursors. */
 a, button, [role="button"], .product-card,
 .bento-large, .bento-small, .bento-medium,
 .nav-link, .btn-ghost, .btn-ghost-light,
-.accordion-trigger, .hotspot, .quick-card { cursor: none; }
+.accordion-trigger, .hotspot, .quick-card { cursor: pointer; }
 
 
 h1, h2, h3, h4 {
