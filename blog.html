@@ -549,7 +549,8 @@
       // Fetch from Proxy
       let blogCatalog = [];
       try {
-        const res = await fetch(`${PROXY_URL}/data/blogs.json`);
+        const fetchUrl = PROXY_URL.includes("your-worker") ? "./betelhem-storage/data/blogs.json" : `${PROXY_URL}/data/blogs.json`;
+        const res = await fetch(fetchUrl);
         blogCatalog = await res.json();
       } catch(e) {
         console.error("Failed to load blogs", e);
