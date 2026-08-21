@@ -1,56 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard — Bethlehem Lebneh</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .admin-shell { padding: 120px 2rem 80px; max-width: 1200px; margin: 0 auto; min-height: 100vh; }
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(54,49,46,0.1); padding-bottom: 1rem; }
-    .admin-tabs { display: flex; gap: 1rem; }
-    .tab-btn { background: none; border: 1px solid rgba(54,49,46,0.2); padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
-    .tab-btn.active { background: var(--charcoal); color: #fff; }
-    .admin-panel { display: none; }
-    .admin-panel.active { display: block; }
-    
-    .data-table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
-    .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(54,49,46,0.05); font-size: 0.9rem; }
-    .data-table th { background: #fdfcf8; font-weight: 600; }
-    .data-table img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
-    .action-btn { background: none; border: none; cursor: pointer; color: var(--stone); font-size: 0.8rem; text-decoration: underline; margin-right: 0.5rem; }
-    .action-btn:hover { color: var(--charcoal); }
+    .admin-shell {
+      padding: 120px 2rem 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
 
-    .modal { position: fixed; inset: 0; background: rgba(10,10,10,0.5); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal.active { display: flex; }
-    .modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; }
-    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--charcoal); }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid rgba(54,49,46,0.2); border-radius: 4px; font-family: inherit; }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
-    .btn { padding: 0.75rem 1.5rem; background: var(--charcoal); color: #fff; border: none; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .btn:disabled { opacity: 0.7; cursor: not-allowed; }
-    .btn-outline { background: none; border: 1px solid rgba(54,49,46,0.2); color: var(--charcoal); }
-    
-    .status-msg { margin-top: 1rem; padding: 1rem; border-radius: 4px; font-size: 0.9rem; display: none; }
-    .status-msg.success { background: #e6f4ea; color: #1e8e3e; display: block; }
-    .status-msg.error { background: #fce8e6; color: #d93025; display: block; }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(54, 49, 46, 0.1);
+      padding-bottom: 1rem;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: 1px solid rgba(54, 49, 46, 0.2);
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--charcoal);
+      color: #fff;
+    }
+
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(54, 49, 46, 0.05);
+      font-size: 0.9rem;
+    }
+
+    .data-table th {
+      background: #fdfcf8;
+      font-weight: 600;
+    }
+
+    .data-table img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--stone);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      margin-right: 0.5rem;
+    }
+
+    .action-btn:hover {
+      color: var(--charcoal);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 8px;
+      padding: 2rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+      color: var(--charcoal);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid rgba(54, 49, 46, 0.2);
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--charcoal);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: none;
+      border: 1px solid rgba(54, 49, 46, 0.2);
+      color: var(--charcoal);
+    }
+
+    .status-msg {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .status-msg.success {
+      background: #e6f4ea;
+      color: #1e8e3e;
+      display: block;
+    }
+
+    .status-msg.error {
+      background: #fce8e6;
+      color: #d93025;
+      display: block;
+    }
   </style>
 </head>
+
 <body>
-  <div id="login-overlay" style="position: fixed; inset: 0; background: #fdfcf8; z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+  <div id="login-overlay"
+    style="position: fixed; inset: 0; background: #fdfcf8; z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <img src="Logo.webp" alt="Logo" style="height: 60px; margin-bottom: 2rem;">
     <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; color: var(--charcoal);">Admin Access</h2>
     <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 300px;">
-      <input type="password" id="admin-pass-input" placeholder="Enter Admin Password" required style="padding: 0.75rem; border: 1px solid rgba(54,49,46,0.2); border-radius: 4px; font-family: inherit;">
+      <input type="password" id="admin-pass-input" placeholder="Enter Admin Password" required
+        style="padding: 0.75rem; border: 1px solid rgba(54,49,46,0.2); border-radius: 4px; font-family: inherit;">
       <button type="submit" class="btn" style="justify-content: center;">Login</button>
     </form>
   </div>
 
   <nav class="fixed nav-backdrop">
-    <div class="container nav-main-container" style="height: 80px; display: flex; align-items: center; justify-content: space-between;">
+    <div class="container nav-main-container"
+      style="height: 80px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" class="logo-image"><img src="Logo.webp" alt="Logo" style="height: 40px;"></a>
       <div style="font-family: 'Playfair Display', serif; font-size: 1.2rem;">Admin Dashboard</div>
       <a href="index.html" style="font-size: 0.8rem; text-decoration: underline;">Back to Site</a>
@@ -73,7 +242,15 @@
         <button class="btn" onclick="openProductModal()">+ Add Product</button>
       </div>
       <table class="data-table">
-        <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Actions</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody id="products-tbody"></tbody>
       </table>
     </div>
@@ -85,7 +262,14 @@
         <button class="btn" onclick="openBlogModal()">+ Add Article</button>
       </div>
       <table class="data-table">
-        <thead><tr><th>Image</th><th>Title</th><th>Date</th><th>Actions</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody id="blogs-tbody"></tbody>
       </table>
     </div>
@@ -161,7 +345,8 @@
         </div>
         <div class="form-group">
           <label>Full Content (HTML)</label>
-          <textarea id="b-content" placeholder="<p>Write your article here...</p>" style="min-height: 200px;"></textarea>
+          <textarea id="b-content" placeholder="<p>Write your article here...</p>"
+            style="min-height: 200px;"></textarea>
         </div>
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="closeModals()">Cancel</button>
@@ -172,7 +357,7 @@
   </div>
 
   <script>
-    const PROXY_URL = "https://your-worker.your-name.workers.dev"; // ⚠️ REPLACE WITH YOUR WORKER URL
+    const PROXY_URL = "https://betelhem-proxy.yonatanwondessen99.workers.dev"; // ⚠️ REPLACE WITH YOUR WORKER URL
     let PROXY_PASS = sessionStorage.getItem("adminPass") || "";
 
     let productsData = { products: [] };
@@ -189,20 +374,20 @@
         return;
       }
 
-      
+
       document.getElementById('sync-status').innerText = "Fetching data...";
-      
+
       try {
         // Fetch from Proxy
         const pRes = await fetch(`${PROXY_URL}/data/products.json`);
-        if(pRes.ok) productsData = await pRes.json();
+        if (pRes.ok) productsData = await pRes.json();
 
         const bRes = await fetch(`${PROXY_URL}/data/blogs.json`);
-        if(bRes.ok) blogsData = await bRes.json();
+        if (bRes.ok) blogsData = await bRes.json();
 
         document.getElementById('sync-status').innerText = "✅ Synchronized with Proxy";
         document.getElementById('sync-status').style.color = "#1e8e3e";
-      } catch(err) {
+      } catch (err) {
         document.getElementById('sync-status').innerText = "⚠️ Failed to sync. Check URL.";
         document.getElementById('sync-status').style.color = "#d93025";
       }
@@ -220,11 +405,11 @@
 
     // --- Proxy Push Logic ---
     async function pushToProxy(path, jsonData, btnElement) {
-      if(!PROXY_URL || PROXY_URL.includes("your-worker")) {
+      if (!PROXY_URL || PROXY_URL.includes("your-worker")) {
         alert("Please set PROXY_URL in the code first.");
         return false;
       }
-      if(!PROXY_PASS) {
+      if (!PROXY_PASS) {
         alert("Admin password is required.");
         return false;
       }
@@ -245,10 +430,10 @@
           })
         });
 
-        if(putRes.ok) {
+        if (putRes.ok) {
           alert("Successfully saved to database!");
           return true;
-        } else if(putRes.status === 401) {
+        } else if (putRes.status === 401) {
           alert("Incorrect Admin Password. Please login again.");
           sessionStorage.removeItem("adminPass");
           location.reload();
@@ -258,7 +443,7 @@
           alert("Failed to push: " + err);
           return false;
         }
-      } catch(e) {
+      } catch (e) {
         alert("Error connecting to Proxy.");
         return false;
       } finally {
@@ -289,7 +474,7 @@
 
     function openProductModal(index = -1) {
       document.getElementById('product-modal').classList.add('active');
-      if(index >= 0) {
+      if (index >= 0) {
         document.getElementById('product-modal-title').innerText = "Edit Product";
         const p = productsData.products[index];
         document.getElementById('p-id').value = p.id;
@@ -322,21 +507,21 @@
       };
 
       const existingIndex = productsData.products.findIndex(p => p.id === pId);
-      if(existingIndex >= 0) productsData.products[existingIndex] = newP;
-      else productsData.products.unshift(newP); 
+      if (existingIndex >= 0) productsData.products[existingIndex] = newP;
+      else productsData.products.unshift(newP);
 
       const success = await pushToProxy('data/products.json', productsData, document.getElementById('p-submit'));
-      if(success) {
+      if (success) {
         renderProducts();
         closeModals();
       }
     };
 
     async function deleteProduct(index) {
-      if(confirm("Delete this product?")) {
+      if (confirm("Delete this product?")) {
         const deleted = productsData.products.splice(index, 1);
         const success = await pushToProxy('data/products.json', productsData, event.target);
-        if(success) renderProducts();
+        if (success) renderProducts();
         else productsData.products.splice(index, 0, deleted[0]); // revert if failed
       }
     }
@@ -362,7 +547,7 @@
 
     function openBlogModal(index = -1) {
       document.getElementById('blog-modal').classList.add('active');
-      if(index >= 0) {
+      if (index >= 0) {
         document.getElementById('blog-modal-title').innerText = "Edit Article";
         const b = blogsData[index];
         document.getElementById('b-id').value = b.id;
@@ -391,21 +576,21 @@
       };
 
       const existingIndex = blogsData.findIndex(b => b.id === bId);
-      if(existingIndex >= 0) blogsData[existingIndex] = newB;
+      if (existingIndex >= 0) blogsData[existingIndex] = newB;
       else blogsData.unshift(newB);
 
       const success = await pushToProxy('data/blogs.json', blogsData, document.getElementById('b-submit'));
-      if(success) {
+      if (success) {
         renderBlogs();
         closeModals();
       }
     };
 
     async function deleteBlog(index) {
-      if(confirm("Delete this article?")) {
+      if (confirm("Delete this article?")) {
         const deleted = blogsData.splice(index, 1);
         const success = await pushToProxy('data/blogs.json', blogsData, event.target);
-        if(success) renderBlogs();
+        if (success) renderBlogs();
         else blogsData.splice(index, 0, deleted[0]);
       }
     }
@@ -417,12 +602,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       const loginOverlay = document.getElementById('login-overlay');
       const loginForm = document.getElementById('login-form');
-      
+
       if (PROXY_PASS) {
         loginOverlay.style.display = 'none';
         init();
       }
-      
+
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         PROXY_PASS = document.getElementById('admin-pass-input').value;
@@ -433,4 +618,5 @@
     });
   </script>
 </body>
+
 </html>
