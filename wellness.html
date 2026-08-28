@@ -225,6 +225,74 @@
         height: 240px;
       }
     }
+
+    /* Article Modal Styles */
+    .article-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .article-modal.active {
+      display: flex;
+    }
+
+    .article-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.5);
+      backdrop-filter: blur(8px);
+    }
+
+    .article-modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      background: #fdfcf8;
+      border-radius: 12px;
+      overflow-y: auto;
+      padding: 0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    .article-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: var(--charcoal);
+      cursor: pointer;
+      z-index: 1002;
+    }
+
+    #article-modal-body {
+      padding: 2rem 2rem 4rem;
+    }
+
+    #article-modal-body .article-shell {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -712,5 +780,65 @@
     })();
   </script>
   <script src="cursor.js"></script>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="article-modal">
+    <div class="article-modal-backdrop"></div>
+    <div class="article-modal-content">
+      <button class="article-modal-close" aria-label="Close article">&times;</button>
+      <div id="article-modal-body">
+        <!-- Content gets injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('article-modal');
+      const modalBody = document.getElementById('article-modal-body');
+      const modalClose = document.querySelector('.article-modal-close');
+      const modalBackdrop = document.querySelector('.article-modal-backdrop');
+
+      document.querySelectorAll('.journal-card, .journal-feature-card').forEach(card => {
+        card.addEventListener('click', async function (e) {
+          e.preventDefault();
+          const href = this.getAttribute('href');
+          if (!href) return;
+
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: \\'Playfair Display\\', serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
+
+          try {
+            const res = await fetch(href);
+            const text = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const articleContent = doc.querySelector('.article-shell');
+
+            if (articleContent) {
+              const backLink = articleContent.querySelector('.article-back-link');
+              if (backLink) backLink.remove();
+              const moreSection = articleContent.querySelector('.article-more');
+              if (moreSection) moreSection.remove();
+              modalBody.innerHTML = articleContent.innerHTML;
+            } else {
+              modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Article content not found.</div>';
+            }
+          } catch (err) {
+            modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Error loading article. Try viewing the site on a live server.</div>';
+          }
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', closeModal);
+    })();
+  </script>
 </body>
 </html>
