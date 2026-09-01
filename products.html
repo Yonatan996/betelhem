@@ -765,17 +765,30 @@
 
   <!-- ─── PRODUCTS DATA + RENDER ───────────────────────── -->
   <script>
-    const PROXY_URL = "https://your-worker.your-name.workers.dev"; // ⚠️ REPLACE WITH YOUR WORKER URL
+    const PROXY_URL = "https://betelhem-proxy.yonatanwondessen99.workers.dev";
 
     (async function () {
       let catalog = null;
       try {
-        const res = await fetch(`${PROXY_URL}/data/products.json`);
-        catalog = await res.json();
+        let res = await fetch("./betelhem-storage/data/products.json");
+        if (res.ok) {
+          catalog = await res.json();
+        }
       } catch(e) {
-        console.error("Failed to load products", e);
+        console.warn("Local storage fetch for products failed, trying proxy...", e);
       }
-      if (!catalog) return;
+
+      if (!catalog || !catalog.products) {
+        try {
+          const res = await fetch(`${PROXY_URL}/data/products.json`);
+          if (res.ok) {
+            catalog = await res.json();
+          }
+        } catch(e) {
+          console.error("Failed to load products from proxy", e);
+        }
+      }
+      if (!catalog || !catalog.products) return;
 
       const brandMap = Object.fromEntries(catalog.brands.map(b => [b.id, b]));
 
