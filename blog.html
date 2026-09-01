@@ -637,24 +637,36 @@
       const modalClose = document.querySelector('.article-modal-close');
       const modalBackdrop = document.querySelector('.article-modal-backdrop');
 
-      // Fetch from Proxy with local fallback
+      // Fetch from local JSON storage first (or Worker Proxy if valid array)
       let blogCatalog = [];
       try {
-        let fetchUrl = PROXY_URL.includes("your-worker") ? "./betelhem-storage/data/blogs.json" : `${PROXY_URL}/data/blogs.json`;
-        let res = await fetch(fetchUrl);
-        if (!res.ok && fetchUrl !== "./betelhem-storage/data/blogs.json") {
-          res = await fetch("./betelhem-storage/data/blogs.json");
+        let res = await fetch("./betelhem-storage/data/blogs.json");
+        if (res.ok) {
+          let data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            blogCatalog = data;
+          }
         }
-        blogCatalog = await res.json();
       } catch (e) {
+        console.warn("Local storage fetch failed, trying proxy...", e);
+      }
+
+      // If local storage didn't yield an array, try Proxy URL
+      if (!Array.isArray(blogCatalog) || blogCatalog.length === 0) {
         try {
-          const res = await fetch("./betelhem-storage/data/blogs.json");
-          blogCatalog = await res.json();
-        } catch (err) {
-          console.error("Failed to load blogs", err);
+          let res = await fetch(`${PROXY_URL}/data/blogs.json`);
+          if (res.ok) {
+            let data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              blogCatalog = data;
+            }
+          }
+        } catch (e) {
+          console.error("Failed to load blogs from proxy", e);
         }
       }
-      if (!blogCatalog || blogCatalog.length === 0) return;
+
+      if (!Array.isArray(blogCatalog) || blogCatalog.length === 0) return;
 
       const featureContainer = document.getElementById('featured-article-container');
       const gridContainer = document.getElementById('journal-grid-container');
