@@ -717,14 +717,15 @@
           if (blog.content && blog.content.trim() !== '') {
             modalBody.innerHTML = blog.content;
           } else {
-            // Fallback for hardcoded articles that haven't been edited
-            modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: \\'Playfair Display\\', serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
+            // Fallback for articles without inline content
+            modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; font-family: \'Playfair Display\', serif; font-size: 1.5rem; color: var(--charcoal);">Loading Article...</div>';
             try {
-              const res = await fetch(blog.id);
+              const res = await fetch(`https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/${blog.id}`);
+              if (!res.ok) throw new Error("Article file not found");
               const text = await res.text();
               const parser = new DOMParser();
               const doc = parser.parseFromString(text, 'text/html');
-              const articleContent = doc.querySelector('.article-shell');
+              const articleContent = doc.querySelector('.article-shell') || doc.body;
 
               if (articleContent) {
                 const backLink = articleContent.querySelector('.article-back-link');
@@ -736,7 +737,7 @@
                 modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Article content not found.</div>';
               }
             } catch (err) {
-              modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Error loading article. Try viewing the site on a live server.</div>';
+              modalBody.innerHTML = '<div style="text-align:center; padding: 5rem; color: var(--charcoal);">Article content temporarily unavailable.</div>';
             }
           }
         });
