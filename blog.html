@@ -378,12 +378,7 @@
         style="justify-content: flex-end; gap: 3rem; width: 100%; padding-left: 2rem;">
         <div class="nav-group"><a href="treatments.html" class="nav-link" style="padding-bottom: 1rem;">Services and
             Treatments</a></div>
-        <div class="nav-group">
-          <a href="blog.html" class="nav-link" style="padding-bottom:1rem;">Blog</a>
-          <div class="dropdown-menu right">
-            <a href="wellness.html" class="dropdown-item">Wellness</a>
-          </div>
-        </div>
+        <div class="nav-group"><a href="blog.html" class="nav-link" style="padding-bottom: 1rem;">Blog</a></div>
         <a href="https://bethelhemlebnehskincare.as.me" target="_blank" class="nav-link nav-book-btn"
           style="padding: 0.5rem 1rem;">Book Now</a>
       </div>
@@ -642,14 +637,22 @@
       const modalClose = document.querySelector('.article-modal-close');
       const modalBackdrop = document.querySelector('.article-modal-backdrop');
 
-      // Fetch from Proxy
+      // Fetch from Proxy with local fallback
       let blogCatalog = [];
       try {
-        const fetchUrl = PROXY_URL.includes("your-worker") ? "./betelhem-storage/data/blogs.json" : `${PROXY_URL}/data/blogs.json`;
-        const res = await fetch(fetchUrl);
+        let fetchUrl = PROXY_URL.includes("your-worker") ? "./betelhem-storage/data/blogs.json" : `${PROXY_URL}/data/blogs.json`;
+        let res = await fetch(fetchUrl);
+        if (!res.ok && fetchUrl !== "./betelhem-storage/data/blogs.json") {
+          res = await fetch("./betelhem-storage/data/blogs.json");
+        }
         blogCatalog = await res.json();
       } catch (e) {
-        console.error("Failed to load blogs", e);
+        try {
+          const res = await fetch("./betelhem-storage/data/blogs.json");
+          blogCatalog = await res.json();
+        } catch (err) {
+          console.error("Failed to load blogs", err);
+        }
       }
       if (!blogCatalog || blogCatalog.length === 0) return;
 
