@@ -769,25 +769,27 @@
 
     (async function () {
       let catalog = null;
-      try {
-        let res = await fetch("./betelhem-storage/data/products.json");
-        if (res.ok) {
-          catalog = await res.json();
-        }
-      } catch(e) {
-        console.warn("Local storage fetch for products failed, trying proxy...", e);
-      }
+      const dataSources = [
+        "https://raw.githubusercontent.com/Yonatan996/betelhem-storage/main/data/products.json",
+        "./betelhem-storage/data/products.json",
+        `${PROXY_URL}/data/products.json`
+      ];
 
-      if (!catalog || !catalog.products) {
+      for (const url of dataSources) {
         try {
-          const res = await fetch(`${PROXY_URL}/data/products.json`);
+          let res = await fetch(url);
           if (res.ok) {
-            catalog = await res.json();
+            let data = await res.json();
+            if (data && data.products && data.products.length > 0) {
+              catalog = data;
+              break;
+            }
           }
         } catch(e) {
-          console.error("Failed to load products from proxy", e);
+          console.warn(`Fetch failed for ${url}:`, e);
         }
       }
+
       if (!catalog || !catalog.products) return;
 
       const brandMap = Object.fromEntries(catalog.brands.map(b => [b.id, b]));
